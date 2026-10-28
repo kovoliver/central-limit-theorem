@@ -54,7 +54,7 @@ export function CentralLimitTheorem() {
                             max={100_000}
                             min={1_000}
                             onChange={e => setPopulationSize(parseInt(e.target.value))}
-                            className="w-75"
+                            className="w-75 custom-range"
                         />
 
                         <label className="mx-2">{numberFormat(populationSize/1000)}e fő</label>
@@ -72,7 +72,7 @@ export function CentralLimitTheorem() {
                             max={10}
                             value={sampleCount}
                             onChange={e => setSampleCount(parseInt(e.target.value))}
-                            className="w-75"
+                            className="w-75 custom-range"
                         />
 
                         <label className="mx-2">{sampleCount} db.</label>
