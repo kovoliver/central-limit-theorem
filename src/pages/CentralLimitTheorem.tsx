@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { generateRandNumbers, getHistogramData, getSamples, calcStd, calcSampleStd } from "../app/utils";
+import { generateRandNumbers, getHistogramData, getSamples, calcStd, calcSampleStd, numberFormat } from "../app/utils";
 import type { HistogramData, NumberRange } from "../app/types";
 import HistogramChart from "../components/HistogramChart";
 
@@ -49,14 +49,15 @@ export function CentralLimitTheorem() {
 
                         <input
                             type="range"
-                            step={100}
+                            step={1_000}
                             value={populationSize}
                             max={100_000}
+                            min={1_000}
                             onChange={e => setPopulationSize(parseInt(e.target.value))}
                             className="w-75"
                         />
 
-                        <label className="mx-2">{populationSize} fő</label>
+                        <label className="mx-2">{numberFormat(populationSize/1000)}e fő</label>
                     </div>
                 </div>
 
@@ -89,6 +90,8 @@ export function CentralLimitTheorem() {
                                 <input
                                     type="number"
                                     value={range.from}
+                                    min={0}
+                                    max={900}
                                     onChange={e => setRangeSecure("from", parseInt(e.target.value))}
                                     className="form-control form-control-sm"
                                 />
@@ -100,6 +103,8 @@ export function CentralLimitTheorem() {
                                 <input
                                     type="number"
                                     value={range.to}
+                                    min={100}
+                                    max={1_000}
                                     onChange={e => setRangeSecure("to", parseInt(e.target.value))}
                                     className="form-control form-control-sm"
                                 />

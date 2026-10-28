@@ -109,6 +109,16 @@ export function calcSampleStd(
     return std / Math.sqrt(sampleCount);
 }
 
+export function numberFormat(
+    value: number,
+    locale: string = "hu-HU",
+    maximumFractionDigits: number = 2
+): string {
+    return new Intl.NumberFormat(locale, {
+        maximumFractionDigits
+    }).format(value);
+}
+
 export function getHistogramData(
     samples: number[][],
     mean: number,
@@ -140,7 +150,8 @@ export function getHistogramData(
         }
     }
 
-    const midPointIndex = avgGroups.findIndex(g => g.midPoint === 0);
+    const firstPointIndex = avgGroups.findIndex(g => g.midPoint === range.from);
+
     const zeroMidPoint = {
         bin: `${range.from}-${range.from + interval}`,
         midPoint: range.from,
@@ -148,20 +159,25 @@ export function getHistogramData(
         curve: normalDistribution(0, mean, std) * samples.length * interval
     };
 
-    if (midPointIndex !== -1) {
-        avgGroups[midPointIndex] = zeroMidPoint;
+    if (firstPointIndex !== -1) {
+        avgGroups[firstPointIndex] = zeroMidPoint;
     } else {
         avgGroups.push(zeroMidPoint);
     }
 
-    avgGroups.push({
-        bin: "",
-        midPoint: range.to,
-        frequency: 0,
-        curve: normalDistribution(0, mean, std) * samples.length * interval
-    });
-
     const orderedGroups = avgGroups.filter(g => g.midPoint !== range.to)
         .sort((a, b) => a.midPoint - b.midPoint);
+
+    const lastBinStart = range.to - interval;
+
+    if(orderedGroups[orderedGroups.length - 1].midPoint !== lastBinStart) {
+        orderedGroups.push({
+            bin: `${range.to - interval}-${range.to}`,
+            midPoint: lastBinStart,
+            frequency: 0,
+            curve: normalDistribution(range.to, mean, std) * samples.length * interval
+        });
+    }
+    
     return orderedGroups;
 }
