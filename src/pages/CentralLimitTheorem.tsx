@@ -5,18 +5,18 @@ import HistogramChart from "../components/HistogramChart";
 
 export function CentralLimitTheorem() {
     const [histogramData, setHistogramData] = useState<HistogramData[]>([]);
-    const [populationSize, setPopulationSize] = useState<number>(10_000);
-    const [sampleCount, setSampleCount] = useState<number>(3);
+    const [sampleCount, setSampleCount] = useState<number>(10_000);
+    const [sampleSize, setSampleSize] = useState<number>(3);
     const [range, setRange] = useState<NumberRange>({
         from: 0,
         to: 100
     });
 
     const generate = () => {
-        const randNumbers = generateRandNumbers(range.from, range.to, populationSize);
-        const samples = getSamples(randNumbers, sampleCount);
+        const randNumbers = generateRandNumbers(range.from, range.to, 1_000_000);
+        const samples = getSamples(randNumbers, sampleSize, sampleCount);
         const std = calcStd(randNumbers);
-        const sampleStd = calcSampleStd(std, sampleCount);
+        const sampleStd = calcSampleStd(std, sampleSize);
         const mean = (range.from + range.to)/2;
         const groups = getHistogramData(samples, mean, sampleStd, range);
         setHistogramData(groups);
@@ -45,19 +45,19 @@ export function CentralLimitTheorem() {
             <div className="border border-dark bg-dark p-2 row m-0 text-light">
                 <div className="col-md-4">
                     <div className="form-group p-3">
-                        <label className="d-block mb-2 fw-bold">Sokaság mérete</label>
+                        <label className="d-block mb-2 fw-bold">Mintavételek száma</label>
 
                         <input
                             type="range"
                             step={1_000}
-                            value={populationSize}
+                            value={sampleCount}
                             max={100_000}
                             min={1_000}
-                            onChange={e => setPopulationSize(parseInt(e.target.value))}
+                            onChange={e => setSampleCount(parseInt(e.target.value))}
                             className="w-75 custom-range"
                         />
 
-                        <label className="mx-2">{numberFormat(populationSize/1000)}e fő</label>
+                        <label className="mx-2">{numberFormat(sampleCount/1000)}e</label>
                     </div>
                 </div>
 
@@ -70,12 +70,12 @@ export function CentralLimitTheorem() {
                             step={1}
                             min={2}
                             max={10}
-                            value={sampleCount}
-                            onChange={e => setSampleCount(parseInt(e.target.value))}
+                            value={sampleSize}
+                            onChange={e => setSampleSize(parseInt(e.target.value))}
                             className="w-75 custom-range"
                         />
 
-                        <label className="mx-2">{sampleCount} db.</label>
+                        <label className="mx-2">{sampleSize} db.</label>
                     </div>
                 </div>
 

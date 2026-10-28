@@ -41,7 +41,8 @@ export function generateRandNumbers(
 
 export function getSamples(
     numbers: number[],
-    sampleCount: number
+    sampleSize: number,
+    sampleCount:number = 1000
 ) {
     if (numbers.length === 0) {
         throw new Error(
@@ -49,7 +50,7 @@ export function getSamples(
         );
     }
 
-    if (numbers.length < sampleCount) {
+    if (numbers.length < sampleSize) {
         throw new Error(
             "'Sample size' parameter cannot be greater than the population size!"
         );
@@ -57,10 +58,10 @@ export function getSamples(
 
     const samples = [];
 
-    for (let i = 0; i < numbers.length; i++) {
+    for (let i = 0; i < sampleCount; i++) {
         const sample = [];
 
-        for (let j = 0; j < sampleCount; j++) {
+        for (let j = 0; j < sampleSize; j++) {
             const randNumber = numbers[rand(0, numbers.length - 1)];
             sample.push(randNumber);
         }
