@@ -336,7 +336,8 @@ export function getHistogramData(
         const sample = samples[i];
         const avg = roundRange(sample, funcSteps);
         const midpoint = avg + funcSteps / 2;
-        const bin = `${avg.toFixed(1)}-${(avg + funcSteps).toFixed(1)}`;
+        const fixed = Number.isInteger(funcSteps) ? 0 : 1;
+        const bin = `${avg.toFixed(fixed)}|${(avg + funcSteps).toFixed(fixed)}`;
 
         const index = avgGroups.findIndex(
             data => data.midPoint === midpoint

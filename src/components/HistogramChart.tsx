@@ -61,9 +61,9 @@ export default function HistogramChart({
                         barCategoryGap={1}
                     >
                         <CartesianGrid
-                            stroke={colors.grid}
+                            stroke={colors.axis}
                             strokeDasharray="3 3"
-                            vertical={false}
+                            vertical={true}
                         />
 
                         <XAxis
@@ -177,7 +177,7 @@ export default function HistogramChart({
                             activeDot={{
                                 r: 5,
                                 fill: colors.cyan,
-                                stroke: colors.surface,
+                                stroke: "#2c93bf",
                                 strokeWidth: 2,
                             }}
                             connectNulls
