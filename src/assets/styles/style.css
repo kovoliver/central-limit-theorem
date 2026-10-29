@@ -1,9 +1,56 @@
+:root {
+    color-scheme: dark;
+
+    /* Alapszínek */
+    --bs-body-bg: #0B1120;
+    --bs-body-color: #F1F5F9;
+    --bs-dark-rgb: 11, 17, 32;
+    --bs-light-rgb: 241, 245, 249;
+
+    /* Felületek */
+    --app-bg: #0B1120;
+    --surface: #172337;
+    --surface-hover: #203149;
+    --surface-active: #293D56;
+
+    /* Szegélyek */
+    --bs-border-color: #33445C;
+    --bs-border-color-translucent: rgba(148, 163, 184, 0.2);
+    --border-hover: #4B6380;
+
+    /* Szövegek */
+    --text-primary: #F1F5F9;
+    --text-secondary: #A8B6C9;
+
+    /* Cián akcentusok */
+    --accent: #38BDF8;
+    --accent-hover: #7DD3FC;
+    --accent-dark: #167EAD;
+    --accent-dark-hover: #2098CC;
+    --accent-text: #082F49;
+
+    /* Grafikonok */
+    --chart-cyan: #38BDF8;
+    --chart-violet: #A78BFA;
+    --chart-green: #34D399;
+    --chart-amber: #FBBF24;
+    --chart-rose: #FB7185;
+
+    /* Bootstrap kompatibilitás */
+    --bs-primary: #38BDF8;
+    --bs-primary-rgb: 56, 189, 248;
+    --bs-secondary: #A8B6C9;
+    --bs-secondary-rgb: 168, 182, 201;
+}
+
+
 .custom-range {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     height: 6px;
-    background: #dbeafe;
+    background: #293449;
+    border: 1px solid #3D4B63;
     border-radius: 999px;
     outline: none;
     cursor: pointer;
@@ -15,13 +62,16 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #3b82f6;
-    border: 3px solid #1d4ed8;
+    background: #A78BFA;
+    border: 3px solid #6D52B5;
     cursor: grab;
-    transition: transform 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease;
 }
 
 .custom-range::-webkit-slider-thumb:hover {
+    background: #C4B5FD;
     transform: scale(1.1);
 }
 
@@ -34,18 +84,134 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #3b82f6;
-    border: 3px solid #1d4ed8;
+    background: #A78BFA;
+    border: 3px solid #6D52B5;
     cursor: grab;
+}
+
+.custom-range::-moz-range-thumb:hover {
+    background: #C4B5FD;
 }
 
 .custom-range::-moz-range-track {
     height: 6px;
-    background: #dbeafe;
+    background: #293449;
+    border: 1px solid #3D4B63;
     border-radius: 999px;
 }
 
 .custom-range:focus-visible {
-    outline: 2px solid #60a5fa;
+    outline: 2px solid #A78BFA;
     outline-offset: 6px;
+}
+
+html,
+body,
+#root {
+    min-height: 100%;
+    background-color: var(--app-bg);
+    color: var(--text-primary);
+}
+
+body {
+    min-height: 100vh;
+}
+
+.bg-dark {
+    --bs-bg-opacity: 1;
+    background-color: var(--surface) !important;
+}
+
+.border {
+    border-color: var(--bs-border-color) !important;
+}
+
+.border-dark {
+    border-color: var(--bs-border-color) !important;
+}
+
+.navbar.bg-dark {
+    background-color: var(--surface) !important;
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.navbar .btn-outline-light {
+    --bs-btn-color: #D5E7F5;
+    --bs-btn-bg: var(--accent-dark);
+    --bs-btn-border-color: var(--accent-dark);
+
+    --bs-btn-hover-color: #FFFFFF;
+    --bs-btn-hover-bg: var(--accent-dark-hover);
+    --bs-btn-hover-border-color: var(--accent-dark-hover);
+
+    --bs-btn-active-color: var(--accent-text);
+    --bs-btn-active-bg: var(--accent);
+    --bs-btn-active-border-color: var(--accent);
+
+    --bs-btn-focus-shadow-rgb: 56, 189, 248;
+
+    color: var(--bs-btn-color);
+    background-color: var(--bs-btn-bg);
+    border-color: var(--bs-btn-border-color);
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease;
+}
+
+.navbar .btn-outline-light.active,
+.navbar .btn-outline-light[aria-current="page"] {
+    color: var(--accent-text);
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.navbar .btn-outline-light.active:hover,
+.navbar .btn-outline-light[aria-current="page"]:hover {
+    color: var(--accent-text);
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+.navbar .btn-outline-light:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    box-shadow: none;
+}
+
+.btn-primary {
+    --bs-btn-color: var(--accent-text);
+    --bs-btn-bg: var(--accent);
+    --bs-btn-border-color: var(--accent);
+
+    --bs-btn-hover-color: var(--accent-text);
+    --bs-btn-hover-bg: var(--accent-hover);
+    --bs-btn-hover-border-color: var(--accent-hover);
+
+    --bs-btn-active-color: var(--accent-text);
+    --bs-btn-active-bg: var(--accent-hover);
+    --bs-btn-active-border-color: var(--accent-hover);
+}
+
+.form-control,
+.form-select {
+    color: var(--text-primary);
+    background-color: var(--surface);
+    border-color: var(--bs-border-color);
+}
+
+.form-control:focus,
+.form-select:focus {
+    color: var(--text-primary);
+    background-color: var(--surface);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.2rem rgba(56, 189, 248, 0.18);
+}
+
+input[type="range"] {
+    accent-color: var(--accent);
+}
+
+.text-secondary {
+    color: var(--text-secondary) !important;
 }
