@@ -13,6 +13,7 @@ import {
 import type { NumberRange } from "../app/types";
 import { useDistribution } from "../app/hooks/useDistribution";
 import HistogramChart from "../components/HistogramChart";
+import { SecureNumberInput } from "./SecureNumberInput";
 
 export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: number }) {
     const ctx = useDistribution();
@@ -51,19 +52,19 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
         key: keyof NumberRange,
         value: number
     ) => {
-        const range = { ...ctx.range };
+        if (isNaN(value)) return;
 
-        if (
-            !Number.isFinite(value) ||
-            value < -1000 ||
-            (key === "from" && value >= range.to) ||
-            value > 1000
-        ) {
-            return;
+        const nextRange = {
+            ...ctx.range,
+            [key]: value
+        };
+
+        if (nextRange.from >= nextRange.to) {
+            nextRange.from = 0;
+            nextRange.to = 100;
         }
 
-        range[key] = value;
-        ctx.setRange(range);
+        ctx.setRange(nextRange);
     };
 
     useEffect(() => {
@@ -128,7 +129,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                 <div className="col-xl-3">
                     <div className="form-group p-3">
-                        <label className="d-block mb-2 fw-bold">
+                        <label className="d-block mb-2">
                             Osztályköz mérete
                         </label>
 
@@ -160,34 +161,22 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                         <div className="row">
                             <div className="col-6 d-flex align-items-center">
 
-                                <input
-                                    type="number"
+                                <SecureNumberInput
                                     value={ctx.range.from}
-                                    min={0}
+                                    onChange={(val) => setRangeSecure("from", val)}
+                                    defaultValue={0}
+                                    min={-1000}
                                     max={900}
-                                    onChange={(e) =>
-                                        setRangeSecure(
-                                            "from",
-                                            parseInt(e.target.value)
-                                        )
-                                    }
-                                    className="form-control form-control-sm"
                                 />
                             </div>
 
                             <div className="col-6 d-flex align-items-center">
-                                <input
-                                    type="number"
+                                <SecureNumberInput
                                     value={ctx.range.to}
-                                    min={100}
+                                    onChange={(val) => setRangeSecure("to", val)}
+                                    defaultValue={100}
+                                    min={-9000}
                                     max={1000}
-                                    onChange={(e) =>
-                                        setRangeSecure(
-                                            "to",
-                                            parseInt(e.target.value)
-                                        )
-                                    }
-                                    className="form-control form-control-sm"
                                 />
                             </div>
                         </div>

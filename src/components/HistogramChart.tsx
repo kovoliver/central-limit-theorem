@@ -35,6 +35,10 @@ export default function HistogramChart({
 
     const ticks = tickIndexes.map((i) => data[i].midPoint);
 
+    const halfStep = data.length > 1 ? (data[1].midPoint - data[0].midPoint) / 2 : 0;
+    const firstBound = data[0] ? data[0].midPoint - halfStep : 0;
+    const lastBound = data[data.length - 1] ? data[data.length - 1].midPoint + halfStep : "auto";
+
     const colors = {
         grid: "#33445C",
         axis: "#A8B6C9",
@@ -75,16 +79,13 @@ export default function HistogramChart({
                                 offset: -20,
                                 fill: colors.border,
                             }}
-                            padding={{ left: 50, right: 0 }}
-                            domain={[
-                                data[0]?.midPoint ?? "auto",
-                                data[data.length - 1]?.midPoint ?? "auto",
-                            ]}
+                            /* 1. Nincs mesterséges pixel-eltolás, így az X=0 és Y=0 hajszálpontosan egybeesik */
+                            padding={{ left: 0, right: 0 }}
+                            /* 2. A domain pontosan a téglalapok széleitől széleiig tart */
+                            domain={[firstBound, lastBound]}
                             ticks={ticks}
                             tickFormatter={(value) => {
-                                const item = data.find(
-                                    (d) => d.midPoint === value
-                                );
+                                const item = data.find((d) => d.midPoint === value);
                                 return item ? item.bin : "";
                             }}
                             tick={{ fill: colors.axis, fontSize: 12 }}
@@ -166,7 +167,7 @@ export default function HistogramChart({
                             strokeOpacity={0.9}
                             strokeWidth={0.5}
                         />
-                        
+
                         <Line
                             type="natural"
                             dataKey="curve"

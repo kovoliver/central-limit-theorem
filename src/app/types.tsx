@@ -45,3 +45,12 @@ export type DistributionContext = {
 };
 
 export type DensityFunction = (x: number) => number;
+
+export interface NumberInputProps {
+    value: number;
+    onChange: (val: number) => void;
+    defaultValue: number;
+    min: number;
+    max: number;
+    className?: string;
+}
