@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import type {
     DistributionContext,
     DistributionType,
@@ -54,6 +54,18 @@ export function Distribution() {
         funcSteps,
         setFuncSteps
     };
+
+    const init = ()=> {
+        setSampleCount(10_000);
+        setSampleSize(3);
+        setDf1(1);
+        setDf2(1);
+        setRange({from:0, to:100});
+    };
+
+    useEffect(()=> {
+        init();
+    }, [type]);
 
     const getDistributionComponent = () => {
         switch (type) {
