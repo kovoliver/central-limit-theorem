@@ -8,6 +8,8 @@ import type {
 import { ChiSquared } from "../components/ChiSquared";
 import { CentralLimitTheorem } from "../components/CentralLimitTheorem";
 import { useParams } from "react-router-dom";
+import { Student } from "../components/Student";
+import { FDistribution } from "../components/FDistribution";
 
 export const distContext =
     createContext<DistributionContext | undefined>(undefined);
@@ -53,9 +55,12 @@ export function Distribution() {
         switch (type) {
             case "chi-squared":
                 return <ChiSquared />;
-            case "central-limit":
-            default:
+            case "central-limit-theorem":
                 return <CentralLimitTheorem />;
+            case "student":
+                return <Student />;
+            case "f-distribution":
+                return <FDistribution />;
         }
     };
 

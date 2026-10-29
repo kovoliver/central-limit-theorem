@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import {
     generateRandNumbers,
     getHistogramData,
-    getSamples,
+    getNormalDist,
     calcStd,
     calcSampleStd,
     numberFormat,
@@ -24,7 +24,7 @@ export function CentralLimitTheorem() {
             1_000_000
         );
 
-        const samples = getSamples(
+        const samples = getNormalDist(
             randNumbers,
             ctx.sampleSize,
             ctx.sampleCount

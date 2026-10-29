@@ -22,6 +22,24 @@ export function Navigation() {
                     >
                         Khi-négyzet-eloszlás
                     </NavLink>
+
+                    <NavLink
+                        to="/distribution/student"
+                        className={({ isActive }) =>
+                            `btn btn-outline-light px-3 py-2 ${isActive ? "active fw-semibold" : ""}`
+                        }
+                    >
+                        Student
+                    </NavLink>
+
+                    <NavLink
+                        to="/distribution/f-distribution"
+                        className={({ isActive }) =>
+                            `btn btn-outline-light px-3 py-2 ${isActive ? "active fw-semibold" : ""}`
+                        }
+                    >
+                        F-eloszlás
+                    </NavLink>
                 </div>
             </div>
         </nav>

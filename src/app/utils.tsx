@@ -13,6 +13,17 @@ export const rand = (
     return Math.floor(Math.random() * ((to - from) + 1)) + from;
 };
 
+export const randContinuous = (
+    from: number,
+    to: number
+): number => {
+    if (from > to) {
+        throw new Error('"from" parameter cannot be greater than "to".');
+    }
+
+    return Math.random() * (to - from) + from;
+};
+
 export function generateRandNumbers(
     from: number,
     to: number,
@@ -33,13 +44,13 @@ export function generateRandNumbers(
     const numbers = [];
 
     for (let i = 0; i < count; i++) {
-        numbers.push(rand(from, to));
+        numbers.push(randContinuous(from, to));
     }
 
     return numbers;
 }
 
-export function getSamples(
+export function getNormalDist(
     numbers: number[],
     sampleSize: number,
     sampleCount: number = 1000
@@ -73,6 +84,26 @@ export function getSamples(
     return samples;
 }
 
+export function getStandardNormalDist(
+    numbers: number[],
+    sampleSize: number,
+    sampleCount: number = 1000
+) {
+    const samples = getNormalDist(
+        numbers,
+        sampleSize,
+        sampleCount
+    );
+
+    const mean = (Math.min(...numbers) + Math.max(...numbers)) / 2;
+    const std = calcStd(numbers);
+    const standardError = std / Math.sqrt(sampleSize);
+
+    return samples.map(
+        sample => (sample - mean) / standardError
+    );
+}
+
 export function getChiSquared(
     df: number,
     range: NumberRange,
@@ -86,8 +117,8 @@ export function getChiSquared(
         const randNumbers2 = generateRandNumbers(range.from, range.to, 100_000);
         const sigma = (range.to - range.from) / Math.sqrt(6 * sampleSize);
 
-        const sample1 = getSamples(randNumbers1, sampleSize, sampleCount);
-        const sample2 = getSamples(randNumbers2, sampleSize, sampleCount);
+        const sample1 = getNormalDist(randNumbers1, sampleSize, sampleCount);
+        const sample2 = getNormalDist(randNumbers2, sampleSize, sampleCount);
 
         const squaredDiffs = sample1.map(
             (s, i) => ((s - sample2[i]) / sigma) ** 2
@@ -96,7 +127,57 @@ export function getChiSquared(
         chiSquared = chiSquared.map((val, i) => val + squaredDiffs[i]);
     }
 
+
     return chiSquared;
+}
+
+export function getTDistribution(
+    df: number,
+    range: NumberRange,
+    sampleSize: number,
+    sampleCount: number = 10_000,
+) {
+    const randNumbersNormal = generateRandNumbers(
+        range.from,
+        range.to,
+        100_000
+    );
+
+    const normalDist = getStandardNormalDist(
+        randNumbersNormal,
+        sampleSize,
+        sampleCount
+    );
+
+    const chiDist = getChiSquared(
+        df,
+        range,
+        sampleSize,
+        sampleCount
+    );
+
+    const tDist = chiDist.map(
+        (sample, i) => normalDist[i] / Math.sqrt(sample / df)
+    );
+
+    return tDist;
+}
+
+export function getFDistribution(
+    df1: number,
+    df2: number,
+    range: NumberRange,
+    sampleSize: number,
+    sampleCount: number = 10_000,
+) {
+    const chi1 = getChiSquared(df1, range, sampleSize, sampleCount);
+    const chi2 = getChiSquared(df2, range, sampleSize, sampleCount);
+
+    const fDist = chi1.map(
+        (sample, i) => (sample / df1) / (chi2[i] / df2)
+    );
+    
+    return fDist;
 }
 
 export function roundRange(value: number, range: number) {
@@ -199,6 +280,50 @@ export function chiSquarePDF(x: number, k: number): number {
     return Math.exp(logDensity);
 }
 
+export function tDistributionPDF(x: number, df: number): number {
+    if (df <= 0 || !Number.isInteger(df)) {
+        throw new Error("The degrees of freedom must be a positive integer.");
+    }
+
+    const logDensity =
+        logGamma((df + 1) / 2)
+        - logGamma(df / 2)
+        - 0.5 * Math.log(df * Math.PI)
+        - ((df + 1) / 2) * Math.log(1 + (x * x) / df);
+
+    return Math.exp(logDensity);
+}
+
+
+export function fDistributionPDF(
+    x: number,
+    df1: number,
+    df2: number
+): number {
+    if (
+        df1 <= 0 || !Number.isInteger(df1) ||
+        df2 <= 0 || !Number.isInteger(df2)
+    ) {
+        throw new Error(
+            "The degrees of freedom must be positive integers."
+        );
+    }
+
+    if (x <= 0) return 0;
+
+    const logDensity =
+        (df1 / 2) * Math.log(df1 / df2)
+        + (df1 / 2 - 1) * Math.log(x)
+        + logGamma((df1 + df2) / 2)
+        - logGamma(df1 / 2)
+        - logGamma(df2 / 2)
+        - ((df1 + df2) / 2) * Math.log(
+            1 + (df1 / df2) * x
+        );
+
+    return Math.exp(logDensity);
+}
+
 export function getHistogramData(
     samples: number[],
     range: NumberRange,
@@ -211,6 +336,7 @@ export function getHistogramData(
         const sample = samples[i];
         const avg = roundRange(sample, interval);
         const midpoint = avg + interval / 2;
+        const bin = `${avg.toFixed(1)}-${(avg + interval).toFixed(1)}`;
 
         const index = avgGroups.findIndex(
             data => data.midPoint === midpoint
@@ -220,7 +346,7 @@ export function getHistogramData(
             const density = densityFunction(midpoint) * samples.length * interval;
 
             avgGroups.push({
-                bin: `${avg}-${avg + interval}`,
+                bin: bin,
                 midPoint: midpoint,
                 frequency: 1,
                 curve: density,
@@ -229,7 +355,7 @@ export function getHistogramData(
             const element = avgGroups[index];
 
             avgGroups[index].frequency = element.frequency + 1;
-            avgGroups[index].bin = `${avg}-${avg + interval}`;
+            avgGroups[index].bin = bin;
         }
     }
 
