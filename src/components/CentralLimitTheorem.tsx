@@ -55,7 +55,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
         if (
             !Number.isFinite(value) ||
-            value < 0 ||
+            value < -1000 ||
             (key === "from" && value >= range.to) ||
             value > 1000
         ) {
