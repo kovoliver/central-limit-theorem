@@ -72,7 +72,7 @@ export default function HistogramChart({
                                 value: "Osztályközök",
                                 position: "insideBottom",
                                 offset: -20,
-                                fill: colors.axis,
+                                fill: colors.border,
                             }}
                             padding={{ left: 50, right: 0 }}
                             domain={[
@@ -96,7 +96,7 @@ export default function HistogramChart({
                                 value: "Gyakoriság",
                                 angle: -90,
                                 position: "insideLeft",
-                                fill: colors.axis,
+                                fill: colors.border,
                             }}
                             domain={[0, "auto"]}
                             tick={{ fill: colors.axis, fontSize: 12 }}
@@ -148,11 +148,9 @@ export default function HistogramChart({
                             verticalAlign="top"
                             wrapperStyle={{
                                 paddingBottom: "15px",
-                                color: colors.text,
-                                fontSize: "13px",
                             }}
                             formatter={(value) => (
-                                <span style={{ color: colors.text }}>
+                                <span style={{ color: colors.border }}>
                                     {value}
                                 </span>
                             )}
