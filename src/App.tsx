@@ -1,11 +1,24 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import { MainLayout } from "./components/layouts/MainLayout";
 import { Distribution } from "./pages/Distributions";
 
-function App() {
+export default function App() {
     return (
-        <>
-            <Distribution/>
-        </>
-    )
-}
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<MainLayout />}>
+                    <Route
+                        index
+                        element={<Navigate to="/distribution/normal" replace />}
+                    />
 
-export default App;
+                    <Route
+                        path="distribution/:type"
+                        element={<Distribution />}
+                    />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
+}

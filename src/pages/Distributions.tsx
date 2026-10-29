@@ -5,13 +5,16 @@ import type {
     HistogramData,
     NumberRange,
 } from "../app/types";
-import { ChiSquared } from "./ChiSquared";
-import { CentralLimitTheorem } from "./CentralLimitTheorem";
+import { ChiSquared } from "../components/ChiSquared";
+import { CentralLimitTheorem } from "../components/CentralLimitTheorem";
+import { useParams } from "react-router-dom";
 
 export const distContext =
     createContext<DistributionContext | undefined>(undefined);
 
 export function Distribution() {
+    const { type } = useParams();
+
     const [distribution, setDistribution] =
         useState<DistributionType>("normal");
 
@@ -46,10 +49,20 @@ export function Distribution() {
         setRange,
     };
 
+    const getDistributionComponent = () => {
+        switch (type) {
+            case "chi-squared":
+                return <ChiSquared />;
+            case "central-limit":
+            default:
+                return <CentralLimitTheorem />;
+        }
+    };
+
     return (
         <distContext.Provider value={contextValue}>
             <div className="container">
-                <CentralLimitTheorem/>
+                {getDistributionComponent()}
             </div>
         </distContext.Provider>
     );
