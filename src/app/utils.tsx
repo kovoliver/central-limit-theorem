@@ -1,4 +1,4 @@
-import type { HistogramData, NumberRange } from "./types";
+import type { DensityFunction, HistogramData, NumberRange } from "./types";
 
 export const rand = (
     from: number,
@@ -42,7 +42,7 @@ export function generateRandNumbers(
 export function getSamples(
     numbers: number[],
     sampleSize: number,
-    sampleCount:number = 1000
+    sampleCount: number = 1000
 ) {
     if (numbers.length === 0) {
         throw new Error(
@@ -59,17 +59,44 @@ export function getSamples(
     const samples = [];
 
     for (let i = 0; i < sampleCount; i++) {
-        const sample = [];
+        let avg = 0;
 
         for (let j = 0; j < sampleSize; j++) {
             const randNumber = numbers[rand(0, numbers.length - 1)];
-            sample.push(randNumber);
+            avg += randNumber;
+
         }
 
-        samples.push(sample);
+        samples.push(avg / sampleSize);
     }
 
     return samples;
+}
+
+export function getChiSquared(
+    df: number,
+    range: NumberRange,
+    sampleSize: number,
+    sampleCount: number = 10_000,
+) {
+    let chiSquared: number[] = new Array(sampleCount).fill(0);
+
+    for (let i = 0; i < df; i++) {
+        const randNumbers1 = generateRandNumbers(range.from, range.to, 100_000);
+        const randNumbers2 = generateRandNumbers(range.from, range.to, 100_000);
+        const sigma = (range.to - range.from) / Math.sqrt(6 * sampleSize);
+
+        const sample1 = getSamples(randNumbers1, sampleSize, sampleCount);
+        const sample2 = getSamples(randNumbers2, sampleSize, sampleCount);
+
+        const squaredDiffs = sample1.map(
+            (s, i) => ((s - sample2[i]) / sigma) ** 2
+        );
+
+        chiSquared = chiSquared.map((val, i) => val + squaredDiffs[i]);
+    }
+
+    return chiSquared;
 }
 
 export function roundRange(value: number, range: number) {
@@ -120,28 +147,83 @@ export function numberFormat(
     }).format(value);
 }
 
+export function logGamma(z: number): number {
+    const coefficients = [
+        676.5203681218851,
+        -1259.1392167224028,
+        771.32342877765313,
+        -176.61502916214059,
+        12.507343278686905,
+        -0.13857109526572012,
+        9.9843695780195716e-6,
+        1.5056327351493116e-7,
+    ];
+
+    if (z < 0.5) {
+        return Math.log(Math.PI)
+            - Math.log(Math.sin(Math.PI * z))
+            - logGamma(1 - z);
+    }
+
+    z -= 1;
+
+    let x = 0.99999999999980993;
+
+    for (let i = 0; i < coefficients.length; i++) {
+        x += coefficients[i] / (z + i + 1);
+    }
+
+    const t = z + coefficients.length - 0.5;
+
+    return (
+        0.5 * Math.log(2 * Math.PI)
+        + (z + 0.5) * Math.log(t)
+        - t
+        + Math.log(x)
+    );
+}
+
+export function chiSquarePDF(x: number, k: number): number {
+    if (x <= 0) return 0;
+
+    if (k <= 0 || !Number.isInteger(k)) {
+        throw new Error("The degrees of freedom must be a positive integer.");
+    }
+
+    const logDensity =
+        (k / 2 - 1) * Math.log(x)
+        - x / 2
+        - (k / 2) * Math.log(2)
+        - logGamma(k / 2);
+
+    return Math.exp(logDensity);
+}
+
 export function getHistogramData(
-    samples: number[][],
-    mean: number,
-    std: number,
+    samples: number[],
     range: NumberRange,
+    densityFunction: DensityFunction,
     interval: number = 5,
 ): HistogramData[] {
     const avgGroups: HistogramData[] = [];
 
     for (let i = 0; i < samples.length; i++) {
         const sample = samples[i];
-        let avg = roundRange(calcMean(sample), interval);
-        const index = avgGroups.findIndex(data => data.midPoint === avg);
+        const avg = roundRange(sample, interval);
+        const midpoint = avg + interval / 2;
+
+        const index = avgGroups.findIndex(
+            data => data.midPoint === midpoint
+        );
 
         if (index === -1) {
-            const normalDistVal = normalDistribution(avg + interval / 2, mean, std) * samples.length * interval;
+            const density = densityFunction(midpoint) * samples.length * interval;
 
             avgGroups.push({
                 bin: `${avg}-${avg + interval}`,
-                midPoint: avg,
+                midPoint: midpoint,
                 frequency: 1,
-                curve: normalDistVal
+                curve: density,
             });
         } else {
             const element = avgGroups[index];
@@ -151,34 +233,46 @@ export function getHistogramData(
         }
     }
 
-    const firstPointIndex = avgGroups.findIndex(g => g.midPoint === range.from);
+    // const firstPointIndex = avgGroups.findIndex(
+    //     g => g.midPoint === range.from
+    // );
 
-    const zeroMidPoint = {
-        bin: `${range.from}-${range.from + interval}`,
-        midPoint: range.from,
-        frequency: 0,
-        curve: normalDistribution(0, mean, std) * samples.length * interval
-    };
+    // const firstPoint: HistogramData = {
+    //     bin: `${range.from}-${range.from + interval}`,
+    //     midPoint: range.from,
+    //     frequency: 0,
+    //     curve:
+    //         densityFunction(range.from + interval / 2) *
+    //         samples.length *
+    //         interval,
+    // };
 
-    if (firstPointIndex !== -1) {
-        avgGroups[firstPointIndex] = zeroMidPoint;
-    } else {
-        avgGroups.push(zeroMidPoint);
-    }
+    // if (firstPointIndex !== -1) {
+    //     avgGroups[firstPointIndex] = firstPoint;
+    // } else {
+    //     avgGroups.push(firstPoint);
+    // }
 
-    const orderedGroups = avgGroups.filter(g => g.midPoint !== range.to)
+    const orderedGroups = avgGroups
+        .filter(g => g.midPoint !== range.to)
         .sort((a, b) => a.midPoint - b.midPoint);
 
-    const lastBinStart = range.to - interval;
+    // const lastBinStart = range.to - interval;
 
-    if(orderedGroups[orderedGroups.length - 1].midPoint !== lastBinStart) {
-        orderedGroups.push({
-            bin: `${range.to - interval}-${range.to}`,
-            midPoint: lastBinStart,
-            frequency: 0,
-            curve: normalDistribution(range.to, mean, std) * samples.length * interval
-        });
-    }
-    
+    // if (
+    //     orderedGroups.length === 0 ||
+    //     orderedGroups[orderedGroups.length - 1].midPoint !== lastBinStart
+    // ) {
+    //     orderedGroups.push({
+    //         bin: `${lastBinStart}-${range.to}`,
+    //         midPoint: lastBinStart,
+    //         frequency: 0,
+    //         curve:
+    //             densityFunction(range.to - interval / 2) *
+    //             samples.length *
+    //             interval,
+    //     });
+    // }
+
     return orderedGroups;
 }

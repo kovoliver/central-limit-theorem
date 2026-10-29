@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { generateRandNumbers, getHistogramData, getSamples, calcStd, calcSampleStd, numberFormat } from "../app/utils";
+import { 
+    generateRandNumbers, getHistogramData, 
+    getSamples, calcStd, 
+    calcSampleStd, numberFormat,
+    normalDistribution,
+} from "../app/utils";
 import type { HistogramData, NumberRange } from "../app/types";
 import HistogramChart from "../components/HistogramChart";
 
@@ -18,7 +23,8 @@ export function CentralLimitTheorem() {
         const std = calcStd(randNumbers);
         const sampleStd = calcSampleStd(std, sampleSize);
         const mean = (range.from + range.to)/2;
-        const groups = getHistogramData(samples, mean, sampleStd, range);
+        const densityFunction = (x:number)=>normalDistribution(x, mean, sampleStd);
+        const groups = getHistogramData(samples, range, densityFunction);
         setHistogramData(groups);
     };
 

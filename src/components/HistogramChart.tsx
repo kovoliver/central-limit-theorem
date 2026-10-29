@@ -49,7 +49,7 @@ export default function HistogramChart({ data }: { data: HistogramData[] }) {
                                 position: "insideBottom",
                                 offset: -20,
                             }}
-                            padding={{ left: 0, right: 0 }}
+                            padding={{ left: 50, right: 0 }}
                             domain={[
                                 data[0]?.midPoint ?? 'auto',
                                 data[data.length - 1]?.midPoint ?? 'auto'

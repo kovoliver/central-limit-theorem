@@ -1,9 +1,9 @@
-import { CentralLimitTheorem } from "./pages/CentralLimitTheorem";
+import { Distribution } from "./pages/Distributions";
 
 function App() {
     return (
         <>
-            <CentralLimitTheorem/>
+            <Distribution/>
         </>
     )
 }
