@@ -76,7 +76,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
         <>
             <div className="border border-dark bg-dark p-2 row m-0 text-light">
                 <div className="col-xl-3">
-                    <div className="form-group p-3">
+                    <div className="form-group px-1 py-3">
                         <label className="d-block mb-2">
                             Mintavételek száma
                         </label>
@@ -102,7 +102,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 </div>
 
                 <div className="col-xl-2">
-                    <div className="form-group p-3">
+                    <div className="form-group px-1 py-3">
                         <label className="d-block mb-2">
                             Minta elemszáma
                         </label>
@@ -128,7 +128,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 </div>
 
                 <div className="col-xl-3">
-                    <div className="form-group p-3">
+                    <div className="form-group px-1 py-3">
                         <label className="d-block mb-2">
                             Osztályköz mérete
                         </label>
@@ -153,7 +153,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 </div>
 
                 <div className="col-xl-3">
-                    <div className="form-group p-3">
+                    <div className="form-group px-1 py-3">
                         <label className="d-block mb-2">
                             Mintaértékek (tól-ig)
                         </label>
