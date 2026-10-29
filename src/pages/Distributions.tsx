@@ -6,6 +6,7 @@ import type {
     NumberRange,
 } from "../app/types";
 import { ChiSquared } from "./ChiSquared";
+import { CentralLimitTheorem } from "./CentralLimitTheorem";
 
 export const distContext =
     createContext<DistributionContext | undefined>(undefined);
@@ -48,7 +49,7 @@ export function Distribution() {
     return (
         <distContext.Provider value={contextValue}>
             <div className="container">
-                <ChiSquared/>
+                <CentralLimitTheorem/>
             </div>
         </distContext.Provider>
     );
