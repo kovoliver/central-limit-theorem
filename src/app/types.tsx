@@ -39,6 +39,9 @@ export type DistributionContext = {
 
     range: NumberRange;
     setRange: Dispatch<SetStateAction<NumberRange>>;
+
+    funcSteps:number;
+    setFuncSteps:Dispatch<SetStateAction<number>>;
 };
 
 export type DensityFunction = (x: number) => number;

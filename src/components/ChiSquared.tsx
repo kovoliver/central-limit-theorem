@@ -1,15 +1,19 @@
 import { chiSquarePDF, getChiSquared, getHistogramData, numberFormat } from "../app/utils";
 import { useDistribution } from "../app/hooks/useDistribution";
-import type { NumberRange } from "../app/types";
 import HistogramChart from "../components/HistogramChart";
 import { useEffect } from "react";
 
-export function ChiSquared() {
+export function ChiSquared({initFuncSteps = 1}:{initFuncSteps:number}) {
     const ctx = useDistribution();
 
-    const generate = () => {
+    const generate = (funcSteps = ctx.funcSteps) => {
+        const range = {
+            from:0,
+            to:1000
+        };
+
         const samples = getChiSquared(
-            ctx.df1, ctx?.range,
+            ctx.df1, range,
             ctx.sampleSize, ctx.sampleCount
         );
 
@@ -17,27 +21,14 @@ export function ChiSquared() {
             return chiSquarePDF(x, ctx.df1);
         };
 
-        const groups = getHistogramData(samples, ctx.range, densityFunction, 1);
+        const groups = getHistogramData(samples, ctx.range, densityFunction, funcSteps);
         ctx.setHistogramData(groups);
     };
 
     useEffect(() => {
-        generate();
+        ctx.setFuncSteps(initFuncSteps);
+        generate(initFuncSteps);
     }, []);
-
-    const setRangeSecure = (key: keyof NumberRange, value: number) => {
-        const r = { ...ctx.range };
-
-        if (!Number.isFinite(value)
-            || value < 0
-            || key === "from" && value >= r.to
-            || value > 1000) {
-            return r;
-        }
-
-        r[key] = value;
-        ctx.setRange(r);
-    };
 
     return (
         <>
@@ -117,53 +108,36 @@ export function ChiSquared() {
                 <div className="col-md-3">
                     <div className="form-group p-3">
                         <label className="d-block mb-2 fw-bold">
-                            Mintaértékek
+                            Osztályköz mérete
                         </label>
 
-                        <div className="row">
-                            <div className="col-6 d-flex align-items-center">
-                                <label className="me-2">Tól:</label>
+                        <input
+                            type="range"
+                            step={0.05}
+                            min={0.05}
+                            max={5}
+                            value={ctx.funcSteps}
+                            onChange={e =>
+                                ctx.setFuncSteps(parseFloat(e.target.value))
+                            }
+                            className="w-75 custom-range"
+                        />
 
-                                <input
-                                    type="number"
-                                    value={ctx.range.from}
-                                    min={0}
-                                    max={900}
-                                    onChange={e =>
-                                        setRangeSecure("from", parseInt(e.target.value))
-                                    }
-                                    className="form-control form-control-sm"
-                                />
-                            </div>
-
-                            <div className="col-6 d-flex align-items-center">
-                                <label className="me-2">Ig:</label>
-
-                                <input
-                                    type="number"
-                                    value={ctx.range.to}
-                                    min={100}
-                                    max={1_000}
-                                    onChange={e =>
-                                        setRangeSecure("to", parseInt(e.target.value))
-                                    }
-                                    className="form-control form-control-sm"
-                                />
-                            </div>
-                        </div>
+                        <label className="mx-2">
+                            {ctx.funcSteps.toFixed(2)}
+                        </label>
                     </div>
                 </div>
 
                 <div className="col-md-2 d-flex align-items-center justify-content-center">
                     <button
                         className="btn btn-primary btn-sm"
-                        onClick={generate}
+                        onClick={()=>generate()}
                     >
                         Generálás
                     </button>
                 </div>
             </div>
-
 
             <div style={{ marginTop: "-1px" }} className="w-100 bg-light border">
                 <HistogramChart

@@ -23,16 +23,18 @@ export function Distribution() {
     const [histogramData, setHistogramData] =
         useState<HistogramData[]>([]);
 
-    const [sampleCount, setSampleCount] = useState(10_000);
-    const [sampleSize, setSampleSize] = useState(3);
+    const [sampleCount, setSampleCount] = useState<number>(10_000);
+    const [sampleSize, setSampleSize] = useState<number>(3);
 
-    const [df1, setDf1] = useState(1);
-    const [df2, setDf2] = useState(1);
+    const [df1, setDf1] = useState<number>(1);
+    const [df2, setDf2] = useState<number>(1);
 
     const [range, setRange] = useState<NumberRange>({
         from: 0,
         to: 100,
     });
+
+    const [funcSteps, setFuncSteps] = useState<number>(0.1);
 
     const contextValue: DistributionContext = {
         distribution,
@@ -49,18 +51,20 @@ export function Distribution() {
         setDf2,
         range,
         setRange,
+        funcSteps,
+        setFuncSteps
     };
 
     const getDistributionComponent = () => {
         switch (type) {
-            case "chi-squared":
-                return <ChiSquared />;
             case "central-limit-theorem":
                 return <CentralLimitTheorem />;
+            case "chi-squared":
+                return <ChiSquared initFuncSteps={1}/>;
             case "student":
-                return <Student />;
+                return <Student initFuncSteps={0.5}/>;
             case "f-distribution":
-                return <FDistribution />;
+                return <FDistribution initFuncSteps={0.1}/>;
         }
     };
 

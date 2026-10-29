@@ -328,22 +328,22 @@ export function getHistogramData(
     samples: number[],
     range: NumberRange,
     densityFunction: DensityFunction,
-    interval: number = 5,
+    funcSteps: number = 5,
 ): HistogramData[] {
     const avgGroups: HistogramData[] = [];
 
     for (let i = 0; i < samples.length; i++) {
         const sample = samples[i];
-        const avg = roundRange(sample, interval);
-        const midpoint = avg + interval / 2;
-        const bin = `${avg.toFixed(1)}-${(avg + interval).toFixed(1)}`;
+        const avg = roundRange(sample, funcSteps);
+        const midpoint = avg + funcSteps / 2;
+        const bin = `${avg.toFixed(1)}-${(avg + funcSteps).toFixed(1)}`;
 
         const index = avgGroups.findIndex(
             data => data.midPoint === midpoint
         );
 
         if (index === -1) {
-            const density = densityFunction(midpoint) * samples.length * interval;
+            const density = densityFunction(midpoint) * samples.length * funcSteps;
 
             avgGroups.push({
                 bin: bin,
