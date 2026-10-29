@@ -60,7 +60,7 @@ export function Distribution() {
             case "central-limit-theorem":
                 return <CentralLimitTheorem />;
             case "chi-squared":
-                return <ChiSquared initFuncSteps={1}/>;
+                return <ChiSquared initFuncSteps={0.5}/>;
             case "student":
                 return <Student initFuncSteps={0.5}/>;
             case "f-distribution":
@@ -70,7 +70,7 @@ export function Distribution() {
 
     return (
         <distContext.Provider value={contextValue}>
-            <div className="container">
+            <div className="container text-center">
                 {getDistributionComponent()}
             </div>
         </distContext.Provider>

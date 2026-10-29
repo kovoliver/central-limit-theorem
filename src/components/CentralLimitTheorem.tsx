@@ -70,7 +70,7 @@ export function CentralLimitTheorem() {
     }, []);
 
     return (
-        <div className="container-lg text-center">
+        <>
             <div className="border border-dark bg-dark p-2 row m-0 text-light">
                 <div className="col-md-4">
                     <div className="form-group p-3">
@@ -186,6 +186,6 @@ export function CentralLimitTheorem() {
             >
                 <HistogramChart data={ctx.histogramData} />
             </div>
-        </div>
+        </>
     );
 }
