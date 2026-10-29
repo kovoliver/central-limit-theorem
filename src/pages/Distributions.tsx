@@ -58,7 +58,7 @@ export function Distribution() {
     const getDistributionComponent = () => {
         switch (type) {
             case "central-limit-theorem":
-                return <CentralLimitTheorem />;
+                return <CentralLimitTheorem initFuncSteps={5}/>;
             case "chi-squared":
                 return <ChiSquared initFuncSteps={0.5}/>;
             case "student":

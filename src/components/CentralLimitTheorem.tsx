@@ -14,10 +14,10 @@ import type { NumberRange } from "../app/types";
 import { useDistribution } from "../app/hooks/useDistribution";
 import HistogramChart from "../components/HistogramChart";
 
-export function CentralLimitTheorem() {
+export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: number }) {
     const ctx = useDistribution();
 
-    const generate = () => {
+    const generate = (funcSteps = ctx.funcSteps) => {
         const randNumbers = generateRandNumbers(
             ctx.range.from,
             ctx.range.to,
@@ -40,7 +40,8 @@ export function CentralLimitTheorem() {
         const groups = getHistogramData(
             samples,
             ctx.range,
-            densityFunction
+            densityFunction,
+            funcSteps
         );
 
         ctx.setHistogramData(groups);
@@ -66,15 +67,16 @@ export function CentralLimitTheorem() {
     };
 
     useEffect(() => {
-        generate();
+        ctx.setFuncSteps(initFuncSteps);
+        generate(initFuncSteps);
     }, []);
 
     return (
         <>
             <div className="border border-dark bg-dark p-2 row m-0 text-light">
-                <div className="col-md-4">
+                <div className="col-xl-3">
                     <div className="form-group p-3">
-                        <label className="d-block mb-2 fw-bold">
+                        <label className="d-block mb-2">
                             Mintavételek száma
                         </label>
 
@@ -98,10 +100,10 @@ export function CentralLimitTheorem() {
                     </div>
                 </div>
 
-                <div className="col-md-4">
+                <div className="col-xl-2">
                     <div className="form-group p-3">
-                        <label className="d-block mb-2 fw-bold">
-                            Minta méret
+                        <label className="d-block mb-2">
+                            Minta elemszáma
                         </label>
 
                         <input
@@ -119,20 +121,44 @@ export function CentralLimitTheorem() {
                         />
 
                         <label className="mx-2">
-                            {ctx.sampleSize} db.
+                            {ctx.sampleSize}
                         </label>
                     </div>
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-xl-3">
                     <div className="form-group p-3">
                         <label className="d-block mb-2 fw-bold">
-                            Mintaértékek
+                            Osztályköz mérete
+                        </label>
+
+                        <input
+                            type="range"
+                            min={0}
+                            max={2}
+                            step={1}
+                            value={[1, 5, 10].indexOf(ctx.funcSteps)}
+                            onChange={e => {
+                                const values = [1, 5, 10];
+                                ctx.setFuncSteps(values[parseInt(e.target.value, 10)]);
+                            }}
+                            className="w-75 custom-range"
+                        />
+
+                        <label className="mx-2">
+                            {ctx.funcSteps}
+                        </label>
+                    </div>
+                </div>
+
+                <div className="col-xl-3">
+                    <div className="form-group p-3">
+                        <label className="d-block mb-2">
+                            Mintaértékek (tól-ig)
                         </label>
 
                         <div className="row">
                             <div className="col-6 d-flex align-items-center">
-                                <label className="me-2">Tól:</label>
 
                                 <input
                                     type="number"
@@ -150,8 +176,6 @@ export function CentralLimitTheorem() {
                             </div>
 
                             <div className="col-6 d-flex align-items-center">
-                                <label className="me-2">Ig:</label>
-
                                 <input
                                     type="number"
                                     value={ctx.range.to}
@@ -170,10 +194,10 @@ export function CentralLimitTheorem() {
                     </div>
                 </div>
 
-                <div className="col-md-1 d-flex align-items-center justify-content-center">
+                <div className="col-xl-1 d-flex align-items-center justify-content-center">
                     <button
-                        className="btn btn-generate btn-sm"
-                        onClick={generate}
+                        className="btn btn-generate btn-md"
+                        onClick={() => generate()}
                     >
                         Generálás
                     </button>

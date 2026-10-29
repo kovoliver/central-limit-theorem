@@ -79,7 +79,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                 <div className="col-md-2">
                     <div className="form-group p-3">
                         <label className="d-block mb-2 fw-bold">
-                            Minta méret
+                            Minta elemszáma
                         </label>
 
                         <input
@@ -95,7 +95,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                         />
 
                         <label className="mx-2">
-                            {ctx.sampleSize} db.
+                            {ctx.sampleSize}
                         </label>
                     </div>
                 </div>

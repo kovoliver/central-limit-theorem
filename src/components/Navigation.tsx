@@ -29,7 +29,7 @@ export function Navigation() {
                             `btn btn-outline-light px-3 py-2 ${isActive ? "active" : ""}`
                         }
                     >
-                        Student
+                        Student eloszlás
                     </NavLink>
 
                     <NavLink

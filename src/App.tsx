@@ -10,7 +10,7 @@ export default function App() {
                 <Route path="/" element={<MainLayout />}>
                     <Route
                         index
-                        element={<Navigate to="/distribution/normal" replace />}
+                        element={<Navigate to="/distribution/central-limit-theorem" replace />}
                     />
 
                     <Route
