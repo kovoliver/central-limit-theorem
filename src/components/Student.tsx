@@ -7,9 +7,14 @@ export function Student({ initFuncSteps = 0.5 }: { initFuncSteps: number }) {
     const ctx = useDistribution();
 
     const generate = (funcSteps = ctx.funcSteps) => {
+        const range = {
+            from:0,
+            to:1000
+        };
+
         const samples = getTDistribution(
             ctx.df1,
-            ctx.range,
+            range,
             ctx.sampleSize,
             ctx.sampleCount
         );
