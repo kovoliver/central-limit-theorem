@@ -1,48 +1,45 @@
 :root {
     color-scheme: dark;
 
-    /* Alapszínek */
     --bs-body-bg: #0B1120;
     --bs-body-color: #F1F5F9;
     --bs-dark-rgb: 11, 17, 32;
     --bs-light-rgb: 241, 245, 249;
 
-    /* Felületek */
     --app-bg: #0B1120;
     --surface: #172337;
     --surface-hover: #203149;
     --surface-active: #293D56;
 
-    /* Szegélyek */
     --bs-border-color: #33445C;
     --bs-border-color-translucent: rgba(148, 163, 184, 0.2);
     --border-hover: #4B6380;
 
-    /* Szövegek */
     --text-primary: #F1F5F9;
     --text-secondary: #A8B6C9;
 
-    /* Cián akcentusok */
     --accent: #38BDF8;
     --accent-hover: #7DD3FC;
     --accent-dark: #167EAD;
     --accent-dark-hover: #2098CC;
     --accent-text: #082F49;
 
-    /* Grafikonok */
+    --teal: #7DD3C7;
+    --teal-hover: #A7E8DF;
+    --teal-dark: #367F78;
+
     --chart-cyan: #38BDF8;
+    --chart-teal: #7DD3C7;
     --chart-violet: #A78BFA;
     --chart-green: #34D399;
     --chart-amber: #FBBF24;
     --chart-rose: #FB7185;
 
-    /* Bootstrap kompatibilitás */
     --bs-primary: #38BDF8;
     --bs-primary-rgb: 56, 189, 248;
     --bs-secondary: #A8B6C9;
     --bs-secondary-rgb: 168, 182, 201;
 }
-
 
 .custom-range {
     -webkit-appearance: none;
@@ -62,8 +59,8 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #A78BFA;
-    border: 3px solid #6D52B5;
+    background: var(--teal);
+    border: 3px solid var(--teal-dark);
     cursor: grab;
     transition:
         transform 0.2s ease,
@@ -71,7 +68,7 @@
 }
 
 .custom-range::-webkit-slider-thumb:hover {
-    background: #C4B5FD;
+    background: var(--teal-hover);
     transform: scale(1.1);
 }
 
@@ -84,13 +81,13 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #A78BFA;
-    border: 3px solid #6D52B5;
+    background: var(--teal);
+    border: 3px solid var(--teal-dark);
     cursor: grab;
 }
 
 .custom-range::-moz-range-thumb:hover {
-    background: #C4B5FD;
+    background: var(--teal-hover);
 }
 
 .custom-range::-moz-range-track {
@@ -101,7 +98,7 @@
 }
 
 .custom-range:focus-visible {
-    outline: 2px solid #A78BFA;
+    outline: 2px solid var(--teal);
     outline-offset: 6px;
 }
 
@@ -209,9 +206,48 @@ body {
 }
 
 input[type="range"] {
-    accent-color: var(--accent);
+    accent-color: var(--teal);
 }
 
 .text-secondary {
     color: var(--text-secondary) !important;
+}
+
+.btn-generate {
+    color: #0B1120;
+    background-color: var(--teal);
+    border: 1px solid var(--teal);
+    border-radius: 3px;
+    font-weight: 600;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.btn-generate:hover {
+    color: #0B1120;
+    background-color: var(--teal-hover);
+    border-color: var(--teal-hover);
+    box-shadow: 0 0 14px rgba(125, 211, 199, 0.18);
+}
+
+.btn-generate:active {
+    transform: scale(0.98);
+    box-shadow: none;
+}
+
+.btn-generate:focus-visible {
+    outline: 2px solid var(--teal-hover);
+    outline-offset: 3px;
+}
+
+.btn-generate:disabled {
+    color: var(--text-secondary);
+    background-color: var(--surface-active);
+    border-color: var(--surface-active);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
 }

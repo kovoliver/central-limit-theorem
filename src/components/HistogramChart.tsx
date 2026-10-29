@@ -40,11 +40,12 @@ export default function HistogramChart({
         axis: "#A8B6C9",
         text: "#F1F5F9",
         cyan: "#38BDF8",
-        violet: "#A78BFA",
+        green: "#7DD3C7",
+        greenDark: "#367F78",
+        greenHover: "#A7E8DF",
         surface: "#172337",
         border: "#4B6380",
     };
-
     return (
         <section className="w-100">
             <div style={{ height: 520 }}>
@@ -159,23 +160,23 @@ export default function HistogramChart({
                         <Bar
                             dataKey="frequency"
                             name="Empirikus gyakoriság"
-                            fill={colors.cyan}
+                            fill={colors.green}
                             fillOpacity={0.8}
-                            stroke={colors.cyan}
+                            stroke={colors.green}
                             strokeOpacity={0.9}
                             strokeWidth={0.5}
                         />
-
+                        
                         <Line
                             type="natural"
                             dataKey="curve"
                             name="Elméleti görbe"
-                            stroke={colors.violet}
+                            stroke={colors.cyan}
                             strokeWidth={3}
                             dot={false}
                             activeDot={{
                                 r: 5,
-                                fill: colors.violet,
+                                fill: colors.cyan,
                                 stroke: colors.surface,
                                 strokeWidth: 2,
                             }}

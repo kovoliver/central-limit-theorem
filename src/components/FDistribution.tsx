@@ -174,7 +174,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
 
                 <div className="col-md-1 d-flex align-items-center justify-content-center">
                     <button
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-generate btn-sm"
                         onClick={() => generate()}
                     >
                         Generálás
