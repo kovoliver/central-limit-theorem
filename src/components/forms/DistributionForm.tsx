@@ -6,7 +6,7 @@ export default function DistributionForm({generate}:{generate:(initFuncSteps?:nu
 
     return (
         <div className="border border-dark bg-dark p-2 row m-0 text-light">
-            <div className="col-xl-3">
+            <div className="col-xl-3 col-md-6">
                 <div className="form-group px-1 py-3">
                     <label className="d-block mb-2">
                         Mintavételek száma
@@ -30,7 +30,7 @@ export default function DistributionForm({generate}:{generate:(initFuncSteps?:nu
                 </div>
             </div>
 
-            <div className="col-xl-2">
+            <div className="col-xl-2 col-md-6">
                 <div className="form-group px-1 py-3">
                     <label className="d-block mb-2">
                         Minta elemszáma
@@ -54,7 +54,7 @@ export default function DistributionForm({generate}:{generate:(initFuncSteps?:nu
                 </div>
             </div>
 
-            <div className="col-xl-2">
+            <div className="col-xl-2 col-md-6">
                 <div className="form-group px-1 py-3">
                     <label className="d-block mb-2">
                         Szabadságfok
@@ -78,7 +78,7 @@ export default function DistributionForm({generate}:{generate:(initFuncSteps?:nu
                 </div>
             </div>
 
-            <div className="col-xl-3">
+            <div className="col-xl-3 col-md-6">
                 <div className="form-group px-1 py-3">
                     <label className="d-block mb-2">
                         Osztályköz mérete
@@ -102,7 +102,7 @@ export default function DistributionForm({generate}:{generate:(initFuncSteps?:nu
                 </div>
             </div>
 
-            <div className="col-xl-2 d-flex align-items-center justify-content-center">
+            <div className="col-xl-2 col-md-12 d-flex align-items-center justify-content-center">
                 <button
                     className="btn btn-generate btn-md"
                     onClick={() => generate()}
