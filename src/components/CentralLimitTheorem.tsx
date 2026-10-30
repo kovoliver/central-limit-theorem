@@ -80,9 +80,10 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                 <p>
                     A <b>centrális határeloszlás-tétel</b> a statisztika egyik legfontosabb alaptétele.
-                    Kimondja, hogy megfelelő feltételek mellett, független, azonos eloszlású mintavétel esetén,
-                    a minták átlagainak eloszlása kellően nagy mintanagyság esetén a <b>normális eloszláshoz</b> közelít,
-                    függetlenül az alapsokaság eredeti eloszlásától.
+                    Kimondja, hogy megfelelő feltételek mellett, <b>független, azonos eloszlású mintavétel</b>
+                    esetén a minták átlagainak eloszlása a normális eloszláshoz közelít, amennyiben
+                    az egyes minták elemszáma kellően nagy. A közelítő eloszlás empirikus megfigyeléséhez
+                    pedig elegendően <b>sok mintavételre van szükség</b>.
                 </p>
 
                 <p>
@@ -92,8 +93,8 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <h2>Alapfogalmak</h2>
                 <h3>Független, azonos eloszlású mintavétel</h3>
                 <p>
-                    A független azonos eloszlású (FAE) mintavétel egy statisztikai eljárás, 
-                    amely során a mintaelemek valószínűségi változói függetlenek egymástól 
+                    A független azonos eloszlású (FAE) mintavétel egy statisztikai eljárás,
+                    amely során a mintaelemek valószínűségi változói függetlenek egymástól
                     és azonos eloszlást követnek.
                 </p>
 
@@ -190,8 +191,8 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                     is, bemutatom működését.
                     <ol>
                         <li>
-                            A program egymillió véletlenszámot generál egy adott intervallumban. 
-                            Ezek az értékek egyenletes eloszlást követnek, vagyis az intervallumon 
+                            A program egymillió véletlenszámot generál egy adott intervallumban.
+                            Ezek az értékek egyenletes eloszlást követnek, vagyis az intervallumon
                             belül a sűrűség mindenütt azonos.
                         </li>
 
@@ -204,9 +205,9 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                         </li>
 
                         <li>
-                            A szoftver az osztályközök középpontjainál kiszámítja az elméleti normáleloszlás 
-                            sűrűségfüggvényének értékét is. Így összehasonlíthatóvá válik az empirikus 
-                            eloszlás és az elméleti normáleloszlás, amelyhez a minták átlagai a centrális 
+                            A szoftver az osztályközök középpontjainál kiszámítja az elméleti normáleloszlás
+                            sűrűségfüggvényének értékét is. Így összehasonlíthatóvá válik az empirikus
+                            eloszlás és az elméleti normáleloszlás, amelyhez a minták átlagai a centrális
                             határeloszlás-tétel értelmében közelítenek.
                         </li>
                     </ol>
@@ -231,7 +232,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3">
                     <p className="fw-bold mb-2">
                         <i className="bi bi-lightbulb me-2"></i>
-                        Tipp
+                        Tipp 1
                     </p>
                     <p className="mb-0">
                         Vedd le ezerre a mintavételek számát, és egyre az
@@ -241,6 +242,24 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                         felveszed százezerre a mintavételek számát, a nagyobb
                         mintavétel segít az empirikus gyakoriságnak jobban
                         idomulni az elméleti függvény értékeihez.
+                    </p>
+                </div>
+
+                <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3">
+                    <p className="fw-bold mb-2">
+                        <i className="bi bi-lightbulb me-2"></i>
+                        Tipp 2
+                    </p>
+                    <p className="mb-0">
+                        Figyeld meg, hogy minél kisebb a minta elemszáma, annál kevésbé
+                        közelíti a minták átlagainak eloszlása az elméleti görbét.
+                        A minta elemszámának növelésével a normális eloszláshoz való
+                        közelítés egyre pontosabbá válik.
+                        <br />
+                        Továbbá, ha a minta elemszáma kisebb, akkor a képlet alapján
+                        kisebb értékkel osztjuk el az alapsokaság szórását, így
+                        a standard hiba, vagyis a minták átlagainak szórása nagyobb lesz.
+                        Emiatt alakul ki a szélesebb eloszlás.
                     </p>
                 </div>
             </div>
