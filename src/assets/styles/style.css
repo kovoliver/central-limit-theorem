@@ -275,3 +275,7 @@ input[type="range"] {
     cursor: not-allowed;
     transform: none;
 }
+
+.katex {
+    font-size: 1.8em!important;
+}

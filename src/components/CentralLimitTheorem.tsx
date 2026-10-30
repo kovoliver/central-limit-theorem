@@ -80,10 +80,10 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                 <p>
                     A <b>centrális határeloszlás-tétel</b> a statisztika egyik legfontosabb alaptétele.
-                    Kimondja, hogy megfelelő feltételek mellett, <b>független, azonos eloszlású mintavétel</b>
+                    Kimondja, hogy megfelelő feltételek mellett, <b>független, azonos eloszlású mintavétel </b> 
                     esetén a minták átlagainak eloszlása a normális eloszláshoz közelít, amennyiben
                     az egyes minták elemszáma kellően nagy. A közelítő eloszlás empirikus megfigyeléséhez
-                    pedig elegendően <b>sok mintavételre van szükség</b>.
+                    pedig <b>elegendően sok mintavételre van szükség</b>.
                 </p>
 
                 <p>
@@ -93,9 +93,9 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <h2>Alapfogalmak</h2>
                 <h3>Független, azonos eloszlású mintavétel</h3>
                 <p>
-                    A független azonos eloszlású (FAE) mintavétel egy statisztikai eljárás,
-                    amely során a mintaelemek valószínűségi változói függetlenek egymástól
-                    és azonos eloszlást követnek.
+                    A független azonos eloszlású <b>(FAE)</b> mintavétel egy statisztikai eljárás,
+                    amely során a mintaelemek valószínűségi változói <b>függetlenek</b> egymástól
+                    és <b>azonos eloszlást követnek</b>.
                 </p>
 
                 <h3>Mi az a valószínűségi változó?</h3>
