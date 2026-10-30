@@ -80,7 +80,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                 <p>
                     A <b>centrális határeloszlás-tétel</b> a statisztika egyik legfontosabb alaptétele.
-                    Kimondja, hogy megfelelő feltételek mellett, <b>független, azonos eloszlású mintavétel </b> 
+                    Kimondja, hogy megfelelő feltételek mellett, <b>független, azonos eloszlású mintavétel </b>
                     esetén a minták átlagainak eloszlása a normális eloszláshoz közelít, amennyiben
                     az egyes minták elemszáma kellően nagy. A közelítő eloszlás empirikus megfigyeléséhez
                     pedig <b>elegendően sok mintavételre van szükség</b>.
@@ -120,13 +120,19 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                 <h3>Mi az az sűrűségfüggvény?</h3>
                 <p>
-                    A sűrűségfüggvény megmutatja, hogy a megfigyelések hogyan koncentrálódnak az egyes értékek környezetében.
-                    Egy adott intervallumhoz tartozó görbe alatti terület az adott intervallumba eső megfigyelések tömegét szemlélteti.
+                    A sűrűségfüggvény megmutatja, hogyan <b>koncentrálódnak a megfigyelések</b> az egyes értékek környezetében.
+                    A függvény magasabb értékei nagyobb valószínűségi sűrűséget jelentenek, vagyis az adott érték környezetében
+                    nagyobb valószínűséggel találkozunk megfigyelésekkel.
+
+                    <br />
+                    Például, ha a valószínűségi változónk egy populáció tagjainak IQ-értéke, akkor a normális eloszlás sűrűségfüggvénye
+                    szemlélteti, hogyan koncentrálódnak az IQ-értékek az egyes intervallumokban. A tapasztalati adatokból készített
+                    gyakorisági hisztogram pedig megfelelő mintanagyság esetén jól közelítheti az elméleti sűrűségfüggvény alakját.
                 </p>
 
                 <h3>Mi az az eloszlásfüggvény?</h3>
                 <p>
-                    Az eloszlásfüggvény a sűrűségfüggvény integráltja, amelynek segítségével meghatározhatjuk,
+                    Az eloszlásfüggvény a sűrűségfüggvény integráltja. A sűrűségfüggvény segítségével meghatározhatjuk,
                     hogy egy adott intervallumba tartozás mekkora valószínűséggel következik be.
                     Például a testmagasság esetében megadhatjuk annak valószínűségét, hogy egy véletlenszerűen
                     kiválasztott személy magassága 170 és 175 cm közé essen.
@@ -161,7 +167,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <h3>Standard hiba</h3>
 
                 <p>
-                    Ha egy alapsokaságból azonos elemszámú, független mintákat veszünk,
+                    Ha egy alapsokaságból FAE mintákat veszünk,
                     akkor az egyes minták átlaga nem feltétlenül fog megegyezni
                     az alapsokaság átlagával. A különböző minták átlagai közötti
                     ingadozás mértéke azonban egy egyszerű képlettel kiszámítható.
@@ -188,26 +194,31 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <h2>A lenti program működése</h2>
                 <p>
                     Ahhoz, hogy jobban megértsd a lenti program működését és ezáltal a centrális határeloszlás-tételt
-                    is, bemutatom működését.
+                    is, bemutatom a szoftver alapvetéseit.
+                </p>
+
+                <p>
+
                     <ol>
-                        <li>
+                        <li className="p-1">
                             A program egymillió véletlenszámot generál egy adott intervallumban.
                             Ezek az értékek egyenletes eloszlást követnek, vagyis az intervallumon
-                            belül a sűrűség mindenütt azonos.
+                            belül a sűrűség mindenütt azonos, tehát ugyanakkora valószínűséggel
+                            generálunk bármilyen számot az adott tartományban.
                         </li>
 
-                        <li>
+                        <li className="p-1">
                             A program <b>k</b>-elemű mintákat vesz a véletlenszámokból és kiszámolja ezen minták átlagát.
                         </li>
 
-                        <li>
+                        <li className="p-1">
                             A program megszámolja, hogy az egyes osztályközökbe hány érték tartozik.
                         </li>
 
-                        <li>
+                        <li className="p-1">
                             A szoftver az osztályközök középpontjainál kiszámítja az elméleti normáleloszlás
                             sűrűségfüggvényének értékét is. Így összehasonlíthatóvá válik az empirikus
-                            eloszlás és az elméleti normáleloszlás, amelyhez a minták átlagai a centrális
+                            és az elméleti eloszlás, amelyhez a minták átlagai a centrális
                             határeloszlás-tétel értelmében közelítenek.
                         </li>
                     </ol>
@@ -215,16 +226,16 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                 <h3>A paraméterek</h3>
                 <ul>
-                    <li>
+                    <li className="p-1">
                         <b>Mintavételek száma:</b> hány mintavételt hajtson végre a program a generált véletlenszámokból.
                     </li>
-                    <li>
-                        <b>Minta elemszáma:</b> hány elemű mintákat képezzel a szoftver.
+                    <li className="p-1">
+                        <b>Minta elemszáma:</b> hány elemű mintákat képez a szoftver.
                     </li>
-                    <li>
-                        <b>Osztályköz mérete:</b> az intervallum, amelyben összeszámolja a minták átlagainak gyakoriságát a program.
+                    <li className="p-1">
+                        <b>Osztályköz mérete:</b> az a tartomány/szélesség, amelyben összeszámolja a minták átlagainak gyakoriságát a program.
                     </li>
-                    <li>
+                    <li className="p-1">
                         <b>Mintaérték:</b> milyen intervallumban generáljon véletlenszámokat a szoftver.
                     </li>
                 </ul>
@@ -301,7 +312,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                             type="range"
                             step={1}
                             min={2}
-                            max={10}
+                            max={20}
                             value={ctx.sampleSize}
                             onChange={(e) =>
                                 ctx.setSampleSize(

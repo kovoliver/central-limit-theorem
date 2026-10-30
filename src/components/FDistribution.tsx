@@ -51,7 +51,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
 
     return (
         <>
-            <div className="border border-dark bg-dark p-2 row m-0 text-light">
+            <div className="border border-dark bg-dark p-2 row m-0 text-light text-center">
                 <div className="col-xl-2 col-md-6">
                     <div className="form-group py-3">
                         <label className="d-block mb-2">
@@ -86,7 +86,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                             type="range"
                             step={1}
                             min={2}
-                            max={10}
+                            max={20}
                             value={ctx.sampleSize}
                             onChange={e =>
                                 ctx.setSampleSize(parseInt(e.target.value))
