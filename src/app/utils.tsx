@@ -24,6 +24,30 @@ export const randContinuous = (
     return Math.random() * (to - from) + from;
 };
 
+export function getMin(numbers: number[]): number {
+    let min = numbers[0];
+
+    for (let i = 1; i < numbers.length; i++) {
+        if (numbers[i] < min) {
+            min = numbers[i];
+        }
+    }
+
+    return min;
+}
+
+export function getMax(numbers: number[]): number {
+    let max = numbers[0];
+
+    for (let i = 1; i < numbers.length; i++) {
+        if (numbers[i] > max) {
+            max = numbers[i];
+        }
+    }
+
+    return max;
+}
+
 export function generateRandNumbers(
     from: number,
     to: number,
@@ -95,7 +119,7 @@ export function getStandardNormalDist(
         sampleCount
     );
 
-    const mean = (Math.min(...numbers) + Math.max(...numbers)) / 2;
+    const mean = (getMin(numbers) + getMax(numbers)) / 2;
     const std = calcStd(numbers);
     const standardError = std / Math.sqrt(sampleSize);
 
@@ -176,29 +200,12 @@ export function getFDistribution(
     const fDist = chi1.map(
         (sample, i) => (sample / df1) / (chi2[i] / df2)
     );
-    
+
     return fDist;
 }
 
 export function roundRange(value: number, range: number) {
     return Math.round(value / range) * range;
-}
-
-export function normalDistribution(
-    x: number,
-    mean: number,
-    standardDeviation: number
-): number {
-    if (standardDeviation <= 0) {
-        throw new Error("Standard deviation must be greater than zero.");
-    }
-
-    const exponent = -Math.pow(x - mean, 2) /
-        (2 * Math.pow(standardDeviation, 2));
-
-    return (
-        1 / (standardDeviation * Math.sqrt(2 * Math.PI))
-    ) * Math.exp(exponent);
 }
 
 export function calcMean(values: number[]) {
@@ -226,6 +233,23 @@ export function numberFormat(
     return new Intl.NumberFormat(locale, {
         maximumFractionDigits
     }).format(value);
+}
+
+export function normalDistribution(
+    x: number,
+    mean: number,
+    std: number
+): number {
+    if (std <= 0) {
+        throw new Error("Standard deviation must be greater than zero.");
+    }
+
+    const exponent = -Math.pow(x - mean, 2) /
+        (2 * Math.pow(std, 2));
+
+    return (
+        1 / (std * Math.sqrt(2 * Math.PI))
+    ) * Math.exp(exponent);
 }
 
 export function logGamma(z: number): number {

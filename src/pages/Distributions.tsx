@@ -10,6 +10,7 @@ import { CentralLimitTheorem } from "../components/CentralLimitTheorem";
 import { useParams } from "react-router-dom";
 import { Student } from "../components/Student";
 import { FDistribution } from "../components/FDistribution";
+import { NormalDistribution } from "../components/NormalDistribution";
 
 export const distContext =
     createContext<DistributionContext | undefined>(undefined);
@@ -71,6 +72,8 @@ export function Distribution() {
         switch (type) {
             case "central-limit-theorem":
                 return <CentralLimitTheorem initFuncSteps={5}/>;
+            case "normal-distribution":
+                return <NormalDistribution initFuncSteps={0.1}/>;
             case "chi-squared":
                 return <ChiSquared initFuncSteps={0.5}/>;
             case "student":
@@ -82,7 +85,7 @@ export function Distribution() {
 
     return (
         <distContext.Provider value={contextValue}>
-            <div className="container text-center">
+            <div className="container">
                 {getDistributionComponent()}
             </div>
         </distContext.Provider>

@@ -41,6 +41,30 @@
     --bs-secondary-rgb: 168, 182, 201;
 }
 
+h1 {
+    color:var(--surface);
+    font-size:26px;
+}
+
+h2 {
+    color:var(--accent-text);
+    font-size:23px;
+}
+
+h3 {
+    color:var(--teal-dark);
+    font-size:20px;
+}
+
+h4 {
+    color:var(--border-hover);
+    font-size:18px;
+}
+
+.text-secondary-darker {
+    color:#484848!important;
+}
+
 .custom-range {
     -webkit-appearance: none;
     appearance: none;
