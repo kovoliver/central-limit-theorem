@@ -87,7 +87,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 </p>
 
                 <p>
-                    Érdemes megvizsgálni a fenti fogalmakat, hogy jobban értsd a tételt.
+                    <b>Érdemes megvizsgálni a fenti fogalmakat, hogy jobban értsd a tételt.</b>
                 </p>
 
                 <h2>Alapfogalmak</h2>
@@ -108,7 +108,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                     <ul>
                         <li>
-                            <strong>Diszkrét:</strong> egy szabályos kockával dobott
+                            <strong>Diszkrét (csak egész értékek):</strong> egy szabályos dobókockával dobott
                             szám (1-6).
                         </li>
                         <li>
@@ -118,7 +118,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                     </ul>
                 </p>
 
-                <h3>Mi az az sűrűségfüggvény?</h3>
+                <h3>Mi az a sűrűségfüggvény?</h3>
                 <p>
                     A sűrűségfüggvény megmutatja, hogyan <b>koncentrálódnak a megfigyelések</b> az egyes értékek környezetében.
                     A függvény magasabb értékei nagyobb valószínűségi sűrűséget jelentenek, vagyis az adott érték környezetében
@@ -126,8 +126,11 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                     <br />
                     Például, ha a valószínűségi változónk egy populáció tagjainak IQ-értéke, akkor a normális eloszlás sűrűségfüggvénye
-                    szemlélteti, hogyan koncentrálódnak az IQ-értékek az egyes intervallumokban. A tapasztalati adatokból készített
-                    gyakorisági hisztogram pedig megfelelő mintanagyság esetén jól közelítheti az elméleti sűrűségfüggvény alakját.
+                    szemlélteti, hogyan koncentrálódnak az IQ-értékek az egyes intervallumokban. 
+                    Az intelligencia <b>normális eloszlást</b> követ (lásd: lentebb), így a megfigyelések legnagyobb része
+                    az átlag körül halmozódik fel.
+                    A tapasztalati adatokból készített gyakorisági hisztogram pedig megfelelő mintanagyság esetén jól közelítheti 
+                    az elméleti sűrűségfüggvény alakját.
                 </p>
 
                 <h3>Mi az az eloszlásfüggvény?</h3>
