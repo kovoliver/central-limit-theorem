@@ -386,46 +386,9 @@ export function getHistogramData(
         }
     }
 
-    // const firstPointIndex = avgGroups.findIndex(
-    //     g => g.midPoint === range.from
-    // );
-
-    // const firstPoint: HistogramData = {
-    //     bin: `${range.from}-${range.from + interval}`,
-    //     midPoint: range.from,
-    //     frequency: 0,
-    //     curve:
-    //         densityFunction(range.from + interval / 2) *
-    //         samples.length *
-    //         interval,
-    // };
-
-    // if (firstPointIndex !== -1) {
-    //     avgGroups[firstPointIndex] = firstPoint;
-    // } else {
-    //     avgGroups.push(firstPoint);
-    // }
-
     const orderedGroups = avgGroups
         .filter(g => g.midPoint !== range.to)
         .sort((a, b) => a.midPoint - b.midPoint);
-
-    // const lastBinStart = range.to - interval;
-
-    // if (
-    //     orderedGroups.length === 0 ||
-    //     orderedGroups[orderedGroups.length - 1].midPoint !== lastBinStart
-    // ) {
-    //     orderedGroups.push({
-    //         bin: `${lastBinStart}-${range.to}`,
-    //         midPoint: lastBinStart,
-    //         frequency: 0,
-    //         curve:
-    //             densityFunction(range.to - interval / 2) *
-    //             samples.length *
-    //             interval,
-    //     });
-    // }
 
     return orderedGroups;
 }
