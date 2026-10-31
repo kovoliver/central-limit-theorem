@@ -6,14 +6,15 @@ import {
     numberFormat
 } from "../../app/shared/utils";
 import HistogramChart from "../charts/HistogramChart";
+import { BlockMath } from "react-katex";
 
 export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }) {
     const ctx = useDistribution();
 
     const generate = (funcSteps = ctx.funcSteps) => {
         const range = {
-            from:0,
-            to:1000
+            from: 0,
+            to: 1000
         };
 
         const samples = getFDistribution(
@@ -51,6 +52,53 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
 
     return (
         <>
+            <div className="bg-light border-light p-3 text-left text-secondary-darker">
+                <h1>F-eloszlás</h1>
+
+                <p>
+                    Az <b>F-eloszlás</b>, más néven <b>Fisher-Snedecor-eloszlás</b>,
+                    egy folytonos valószínűségi eloszlás, amelyet elsősorban varianciák
+                    összehasonlítására és varianciaanalízis (ANOVA) során alkalmazunk.
+                    Két egymástól független, khi-négyzet eloszlású valószínűségi változó
+                    megfelelően skálázott hányadosaként állítható elő.
+                    Az eloszlás alakját két szabadságfok határozza meg.
+                </p>
+
+                <BlockMath math="F = \frac{U_1 / k_1}{U_2 / k_2}" />
+
+                <p>
+                    A képletben <i>U₁</i> és <i>U₂</i> egymástól független,
+                    <i>k₁</i>, illetve <i>k₂</i> szabadságfokú khi-négyzet eloszlású
+                    valószínűségi változók. A <i>k₁</i> a számláló, a <i>k₂</i> pedig
+                    a nevező szabadságfokát jelöli.
+                </p>
+
+                <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
+                    <p className="fw-bold mb-2">
+                        <i className="bi bi-lightbulb me-2"></i>
+                        Tipp 1
+                    </p>
+                    <p className="mb-0">
+                        Az F-eloszlás értékei nem lehetnek negatívak, mivel két
+                        nemnegatív khi-négyzet változó hányadosából származnak.
+                        Az eloszlás általában jobbra ferde, vagyis a nagyobb értékek
+                        irányába hosszabb elnyúló széle van.
+                    </p>
+                </div>
+
+                <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
+                    <p className="fw-bold mb-2">
+                        <i className="bi bi-lightbulb me-2"></i>
+                        Tipp 2
+                    </p>
+                    <p className="mb-0">
+                        Az F-eloszlás alakja mindkét szabadságfoktól függ.
+                        A szabadságfokok növelésével az eloszlás egyre koncentráltabbá
+                        válik az 1 körüli értékeknél.
+                    </p>
+                </div>
+            </div>
+
             <div className="border border-dark bg-dark p-2 row m-0 text-light text-center">
                 <div className="col-xl-2 col-md-6">
                     <div className="form-group py-3">

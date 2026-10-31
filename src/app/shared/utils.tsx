@@ -1,4 +1,4 @@
-import type { DensityFunction, HistogramData, NumberRange } from "./shared/types";
+import type { DensityFunction, HistogramData, NumberRange } from "./types";
 
 export const rand = (
     from: number,
@@ -119,7 +119,7 @@ export function getStandardNormalDist(
         sampleCount
     );
 
-    const mean = (getMin(numbers) + getMax(numbers)) / 2;
+    const mean = calcMean(samples);
     const std = calcStd(numbers);
     const standardError = std / Math.sqrt(sampleSize);
 
@@ -137,20 +137,22 @@ export function getChiSquared(
     let chiSquared: number[] = new Array(sampleCount).fill(0);
 
     for (let i = 0; i < df; i++) {
-        const randNumbers1 = generateRandNumbers(range.from, range.to, 100_000);
-        const randNumbers2 = generateRandNumbers(range.from, range.to, 100_000);
-        const sigma = (range.to - range.from) / Math.sqrt(6 * sampleSize);
-
-        const sample1 = getNormalDist(randNumbers1, sampleSize, sampleCount);
-        const sample2 = getNormalDist(randNumbers2, sampleSize, sampleCount);
-
-        const squaredDiffs = sample1.map(
-            (s, i) => ((s - sample2[i]) / sigma) ** 2
+        const randNumbers = generateRandNumbers(
+            range.from,
+            range.to,
+            100_000
         );
 
-        chiSquared = chiSquared.map((val, i) => val + squaredDiffs[i]);
-    }
+        const Z = getStandardNormalDist(
+            randNumbers,
+            sampleSize,
+            sampleCount
+        );
 
+        chiSquared = chiSquared.map(
+            (val, j) => val + Z[j] ** 2
+        );
+    }
 
     return chiSquared;
 }

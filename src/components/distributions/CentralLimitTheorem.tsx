@@ -174,7 +174,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                     akkor az egyes minták átlaga nem feltétlenül fog megegyezni
                     az alapsokaság átlagával. A különböző minták átlagai közötti
                     ingadozás mértéke azonban egy egyszerű képlettel kiszámítható.
-                    Ezt nevezzük <b>standard hibának</b>, amelynek képlete:
+                    Ezt nevezzük <b>standard hibának</b> (standard error), amelynek képlete:
                 </p>
 
                 <p>
@@ -243,7 +243,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                     </li>
                 </ul>
 
-                <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3">
+                <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
                     <p className="fw-bold mb-2">
                         <i className="bi bi-lightbulb me-2"></i>
                         Tipp 1
@@ -259,7 +259,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                     </p>
                 </div>
 
-                <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3">
+                <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
                     <p className="fw-bold mb-2">
                         <i className="bi bi-lightbulb me-2"></i>
                         Tipp 2
