@@ -5,9 +5,9 @@ import {
     numberFormat,
     normalDistribution,
     getStandardNormalDist,
-} from "../app/utils";
-import { useDistribution } from "../app/hooks/useDistribution";
-import HistogramChart from "../components/HistogramChart";
+} from "../../app/shared/utils";
+import { useDistribution } from "../../app/hooks/useDistribution";
+import HistogramChart from "../charts/HistogramChart";
 
 export function NormalDistribution({ initFuncSteps = 0.1 }: { initFuncSteps: number }) {
     const ctx = useDistribution();

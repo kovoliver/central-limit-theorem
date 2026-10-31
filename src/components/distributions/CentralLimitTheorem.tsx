@@ -8,12 +8,12 @@ import {
     calcSampleStd,
     numberFormat,
     normalDistribution,
-} from "../app/utils";
+} from "../../app/shared/utils";
 
-import type { NumberRange } from "../app/types";
-import { useDistribution } from "../app/hooks/useDistribution";
-import HistogramChart from "../components/HistogramChart";
-import { SecureNumberInput } from "./SecureNumberInput";
+import type { NumberRange } from "../../app/shared/types";
+import { useDistribution } from "../../app/hooks/useDistribution";
+import HistogramChart from "../charts/HistogramChart";
+import { SecureNumberInput } from "../forms/SecureNumberInput";
 import { BlockMath } from "react-katex";
 
 export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: number }) {

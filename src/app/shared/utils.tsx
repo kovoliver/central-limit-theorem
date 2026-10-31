@@ -1,4 +1,4 @@
-import type { DensityFunction, HistogramData, NumberRange } from "./types";
+import type { DensityFunction, HistogramData, NumberRange } from "./shared/types";
 
 export const rand = (
     from: number,

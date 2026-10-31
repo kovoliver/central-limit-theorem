@@ -1,16 +1,16 @@
 import { createContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import type {
     DistributionContext,
     DistributionType,
     HistogramData,
     NumberRange,
-} from "../app/types";
-import { ChiSquared } from "../components/ChiSquared";
-import { CentralLimitTheorem } from "../components/CentralLimitTheorem";
-import { useParams } from "react-router-dom";
-import { Student } from "../components/Student";
-import { FDistribution } from "../components/FDistribution";
-import { NormalDistribution } from "../components/NormalDistribution";
+} from "../../app/shared/types";
+import { ChiSquared } from "../distributions/ChiSquared";
+import { CentralLimitTheorem } from "../distributions/CentralLimitTheorem";
+import { Student } from "../distributions/Student";
+import { FDistribution } from "../distributions/FDistribution";
+import { NormalDistribution } from "../distributions/NormalDistribution";
 
 export const distContext =
     createContext<DistributionContext | undefined>(undefined);

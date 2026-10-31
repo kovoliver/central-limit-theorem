@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { distContext } from "../../pages/Distributions";
+import { distContext } from "../../components/pages/Distributions";
 
 export function useDistribution() {
     const context = useContext(distContext);

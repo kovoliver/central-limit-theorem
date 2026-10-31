@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useDistribution } from "../app/hooks/useDistribution";
+import { useDistribution } from "../../app/hooks/useDistribution";
 import {
     fDistributionPDF,
     getFDistribution, getHistogramData,
     numberFormat
-} from "../app/utils";
-import HistogramChart from "./HistogramChart";
+} from "../../app/shared/utils";
+import HistogramChart from "../charts/HistogramChart";
 
 export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }) {
     const ctx = useDistribution();

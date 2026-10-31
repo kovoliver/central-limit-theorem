@@ -1,5 +1,5 @@
 import { useDistribution } from "../../app/hooks/useDistribution";
-import { numberFormat } from "../../app/utils";
+import { numberFormat } from "../../app/shared/utils";
 
 export default function DistributionForm({generate}:{generate:(initFuncSteps?:number)=>void}) {
     const ctx = useDistribution();

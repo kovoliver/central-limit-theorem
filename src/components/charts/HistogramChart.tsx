@@ -10,7 +10,7 @@ import {
     Tooltip,
     Legend,
 } from "recharts";
-import { type HistogramData } from "../app/types";
+import { type HistogramData } from "../../app/shared/types";
 
 export default function HistogramChart({
     data,

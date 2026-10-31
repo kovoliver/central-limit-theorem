@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { MainLayout } from "./components/layouts/MainLayout";
-import { Distribution } from "./pages/Distributions";
+import { Distribution } from "./components/pages/Distributions";
 
 export default function App() {
     return (

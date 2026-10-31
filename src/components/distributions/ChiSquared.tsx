@@ -1,8 +1,8 @@
-import { chiSquarePDF, getChiSquared, getHistogramData } from "../app/utils";
-import { useDistribution } from "../app/hooks/useDistribution";
-import HistogramChart from "../components/HistogramChart";
+import { chiSquarePDF, getChiSquared, getHistogramData } from "../../app/shared/utils";
+import { useDistribution } from "../../app/hooks/useDistribution";
+import HistogramChart from "../charts/HistogramChart";
 import { useEffect } from "react";
-import DistributionForm from "./forms/DistributionForm";
+import DistributionForm from "../forms/DistributionForm";
 
 export function ChiSquared({initFuncSteps = 1}:{initFuncSteps:number}) {
     const ctx = useDistribution();

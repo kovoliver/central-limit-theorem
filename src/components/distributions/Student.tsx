@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useDistribution } from "../app/hooks/useDistribution";
-import { getHistogramData, getTDistribution, tDistributionPDF } from "../app/utils";
-import HistogramChart from "./HistogramChart";
-import DistributionForm from "./forms/DistributionForm";
+import { useDistribution } from "../../app/hooks/useDistribution";
+import { getHistogramData, getTDistribution, tDistributionPDF } from "../../app/shared/utils";
+import HistogramChart from "../charts/HistogramChart";
+import DistributionForm from "../forms/DistributionForm";
 
 export function Student({ initFuncSteps = 0.5 }: { initFuncSteps: number }) {
     const ctx = useDistribution();

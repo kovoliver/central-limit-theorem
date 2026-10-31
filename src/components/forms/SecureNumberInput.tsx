@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import type { NumberInputProps } from "../app/types";
+import type { NumberInputProps } from "../../app/shared/types";
 
 export const SecureNumberInput: React.FC<NumberInputProps> = ({
     value,
