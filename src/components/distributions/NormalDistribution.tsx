@@ -110,7 +110,9 @@ export function NormalDistribution({ initFuncSteps = 0.1 }: { initFuncSteps: num
 
                 <h4>Példa:</h4>
 
-                <BlockMath math="E(X) = 0 \cdot 0{,}50 + 10 \cdot 0{,}30 + 50 \cdot 0{,}15 + 100 \cdot 0{,}05 = 0 + 3 + 7{,}5 + 5 = 15{,}5" />
+                <div className="overflow-x-auto">
+                    <BlockMath math="E(X) = 0 \cdot 0{,}50 + 10 \cdot 0{,}30 + 50 \cdot 0{,}15 + 100 \cdot 0{,}05 = 0 + 3 + 7{,}5 + 5 = 15{,}5" />
+                </div>
 
                 <div>
                     <div className="table-responsive my-3">
