@@ -49,6 +49,7 @@ export type DensityFunction = (x: number) => number;
 export interface NumberInputProps {
     value: number;
     onChange: (val: number) => void;
+    validate:(val:number)=>boolean;
     defaultValue: number;
     min: number;
     max: number;

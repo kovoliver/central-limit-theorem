@@ -8,6 +8,7 @@ export const SecureNumberInput: React.FC<NumberInputProps> = ({
     min,
     max,
     className = "form-control form-control-sm",
+    validate,
 }) => {
     const [inputValue, setInputValue] = useState<string>(value.toString());
 
@@ -29,7 +30,12 @@ export const SecureNumberInput: React.FC<NumberInputProps> = ({
     const handleBlur = () => {
         const parsed = parseInt(inputValue, 10);
 
-        if (isNaN(parsed) || parsed < min || parsed > max) {
+        if (
+            isNaN(parsed) ||
+            parsed < min ||
+            parsed > max ||
+            (validate !== undefined && !validate(parsed))
+        ) {
             onChange(defaultValue);
             setInputValue(defaultValue.toString());
         } else {

@@ -49,7 +49,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
         ctx.setHistogramData(groups);
     };
 
-    const setRangeSecure = (
+    const setRangeByKey = (
         key: keyof NumberRange,
         value: number
     ) => {
@@ -59,11 +59,6 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
             ...ctx.range,
             [key]: value
         };
-
-        if (nextRange.from >= nextRange.to) {
-            nextRange.from = 0;
-            nextRange.to = 100;
-        }
 
         ctx.setRange(nextRange);
     };
@@ -367,20 +362,22 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                                 <SecureNumberInput
                                     value={ctx.range.from}
-                                    onChange={(val) => setRangeSecure("from", val)}
+                                    onChange={(val) => setRangeByKey("from", val)}
                                     defaultValue={0}
                                     min={-1000}
                                     max={900}
+                                    validate={(val)=>val < ctx.range.to}
                                 />
                             </div>
 
                             <div className="col-6 d-flex align-items-center">
                                 <SecureNumberInput
                                     value={ctx.range.to}
-                                    onChange={(val) => setRangeSecure("to", val)}
+                                    onChange={(val) => setRangeByKey("to", val)}
                                     defaultValue={100}
                                     min={-9000}
                                     max={1000}
+                                    validate={(val)=>val > ctx.range.from}
                                 />
                             </div>
                         </div>
