@@ -10,6 +10,12 @@ export const rand = (
         );
     }
 
+    if(!Number.isInteger(from) || !Number.isInteger(to)) {
+        throw new Error(
+            "'from' and 'to' parameters must be integers!"
+        );
+    }
+
     return Math.floor(Math.random() * ((to - from) + 1)) + from;
 };
 
@@ -17,7 +23,7 @@ export const randContinuous = (
     from: number,
     to: number
 ): number => {
-    if (from > to) {
+    if (from >= to) {
         throw new Error('"from" parameter cannot be greater than "to".');
     }
 
@@ -25,6 +31,10 @@ export const randContinuous = (
 };
 
 export function getMin(numbers: Float64Array): number {
+    if(numbers.length === 0) {
+        throw new Error("'numbers' parameter must contain at least one number!");
+    }
+
     let min = numbers[0];
 
     for (let i = 1; i < numbers.length; i++) {
@@ -37,6 +47,10 @@ export function getMin(numbers: Float64Array): number {
 }
 
 export function getMax(numbers: Float64Array): number {
+    if(numbers.length === 0) {
+        throw new Error("'numbers' parameter must contain at least one number!");
+    }
+    
     let max = numbers[0];
 
     for (let i = 1; i < numbers.length; i++) {
