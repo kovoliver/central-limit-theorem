@@ -1,78 +1,114 @@
-# React + TypeScript + Vite
+# Central Limit Theorem & Sampling Distributions Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive educational web app that **demonstrates the Central Limit Theorem (CLT)** and shows how the most important sampling distributions in statistics (standard normal, chi-squared, Student's t, F) can be built from simulated random data.
 
-Currently, two official plugins are available:
+Instead of just plotting a formula, the app *generates* the data: it draws random numbers, takes repeated samples, builds the statistic in question, and plots the empirical histogram next to the theoretical density curve, so you can watch the empirical result converge to the theory.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> **Note:** the UI and the explanatory text are written in **Hungarian**.
 
-## React Compiler
+## Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Five interactive pages**, one per topic:
+  - Central Limit Theorem
+  - Standard normal distribution
+  - Chi-squared distribution
+  - Student's t-distribution
+  - F-distribution
+- **Empirical vs. theoretical comparison**: a histogram of simulated values with the theoretical probability density curve overlaid.
+- **Adjustable parameters** via sliders and inputs: number of samples (1,000 – 100,000), sample size (2 – 20), degrees of freedom (1 – 30), class interval (bin) width, and the interval of the generated values.
+- **Built-in theory**: each page explains the key concepts (i.i.d. sampling, random variables, density and distribution functions, expected value, standard error, ...) with KaTeX-rendered formulas and hands-on "Tip" boxes.
+- **Dependency-free math**: density functions and the log-gamma function are implemented in the app itself (no stats library).
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+## How it works
 
-## Expanding the ESLint configuration
+### Central Limit Theorem page
+1. Generates **1,000,000 uniformly distributed** random numbers in a user-defined interval.
+2. Draws `sampleCount` random samples of size `n` (with replacement) and computes each sample's mean.
+3. Counts how many sample means fall into each class interval (bin).
+4. Overlays the theoretical normal density with mean `(from + to) / 2` and standard deviation equal to the **standard error** `SE = σ / √n`.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Standard normal page
+Same sampling procedure, but the sample means are **standardized**: `(mean − mean of the sample means) / SE`, and the result is compared with N(0, 1).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Derived distributions
+All of them are built from the standardized sample means `Z`, which are approximately standard normal thanks to the CLT:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Distribution | Construction in the app |
+|---|---|
+| Chi-squared (k) | `χ² = Σ Zᵢ²` over `k` independent standardized samples |
+| Student's t (k) | `T = Z / √(U / k)` with `U ~ χ²(k)` |
+| F (k₁, k₂) | `F = (U₁ / k₁) / (U₂ / k₂)` with independent chi-squared `U₁`, `U₂` |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The theoretical densities (chi-squared, t, F, normal) are computed in log-space, using a **Lanczos approximation** of the log-gamma function for numerical stability. The histogram's curve is scaled by `sampleCount × binWidth` so it is directly comparable to the bar frequencies.
 
-```
+## Tech stack
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+- **React 19** + **TypeScript**
+- **Vite** (with the **React Compiler** enabled via Babel)
+- **React Router** for page routing
+- **Recharts** for the histogram + curve chart
+- **KaTeX** (`react-katex`) for math rendering
+- **Bootstrap 5** + **Bootstrap Icons** for layout and styling
+- **ESLint** with typescript-eslint and React Hooks rules
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Routes
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Path | Page |
+|---|---|
+| `/` | Redirects to the Central Limit Theorem page |
+| `/distribution/central-limit-theorem` | Central Limit Theorem |
+| `/distribution/normal-distribution` | Standard normal distribution |
+| `/distribution/chi-squared` | Chi-squared distribution |
+| `/distribution/student` | Student's t-distribution |
+| `/distribution/f-distribution` | F-distribution |
+
+## Project structure
 
 ```
+src/
+├── main.tsx                      # Entry point, global CSS imports
+├── App.tsx                       # Router setup
+├── app/
+│   ├── hooks/useDistribution.tsx # Hook for the shared distribution context
+│   └── shared/
+│       ├── types.tsx             # Shared types (HistogramData, DistributionContext, ...)
+│       └── utils.tsx             # Random generation, sampling, distributions, PDFs, binning
+├── assets/styles/style.css       # Custom styles
+└── components/
+    ├── charts/HistogramChart.tsx # Recharts bar + line composed chart
+    ├── distributions/            # One component per page (CLT, Normal, ChiSquared, Student, F)
+    ├── forms/                    # DistributionForm (shared controls), SecureNumberInput
+    ├── layouts/                  # MainLayout, Navigation
+    └── pages/Distributions.tsx   # Page container + shared state (React Context)
+```
+
+### Architecture notes
+- `Distribution` (in `pages/Distributions.tsx`) owns all simulation parameters and the histogram data in a single React Context. Each distribution component reads and updates them through the `useDistribution()` hook.
+- Every distribution component follows the same pattern: a `generate()` function creates the samples, converts them into histogram bins with `getHistogramData()` and stores them in the context; `HistogramChart` renders them.
+- `SecureNumberInput` validates numeric input on blur and falls back to a default value if the input is empty or out of range.
+- For the Student and F pages, values outside `[-10, 10]` are hidden to keep the chart readable.
+
+## Getting started
+
+```bash
+# install dependencies
+npm install
+
+# start the dev server
+npm run dev
+
+# type-check and build for production
+npm run build
+
+# preview the production build
+npm run preview
+
+# lint
+npm run lint
+```
+
+## Known limitations
+
+- All simulation runs **synchronously on the main thread**, so large settings (e.g. high degrees of freedom with many samples) can briefly freeze the UI. Moving the computation to a Web Worker would fix this.
+- Each `generate()` call creates fresh random data, so results differ slightly between runs (this is intentional).
+- Only integer degrees of freedom are supported.
