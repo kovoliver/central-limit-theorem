@@ -98,7 +98,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 </p>
 
                 <h3>Mi az a valószínűségi változó?</h3>
-                <p>
+                <div>
                     <p>
                         A <strong>valószínűségi változó</strong> egy véletlen kísérlet
                         kimeneteléhez rendelt számszerű érték, amely lehet diszkrét
@@ -115,7 +115,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                             utcán szembejövő ember testmagassága.
                         </li>
                     </ul>
-                </p>
+                </div>
 
                 <h3>Mi az a sűrűségfüggvény?</h3>
                 <p>
@@ -176,9 +176,9 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                     Ezt nevezzük <b>standard hibának</b> (standard error), amelynek képlete:
                 </p>
 
-                <p>
+                <div>
                     <BlockMath math="\text{SE} = \frac{\sigma}{\sqrt{n}}" />
-                </p>
+                </div>
 
                 <p>
                     Ahol:
@@ -199,8 +199,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                     is, bemutatom a szoftver alapvetéseit.
                 </p>
 
-                <p>
-
+                <div>
                     <ol>
                         <li className="p-1">
                             A program egymillió véletlenszámot generál egy adott intervallumban.
@@ -224,7 +223,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                             határeloszlás-tétel értelmében közelítenek.
                         </li>
                     </ol>
-                </p>
+                </div>
 
                 <h3>A paraméterek</h3>
                 <ul>
