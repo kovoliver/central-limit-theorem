@@ -46,7 +46,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
     };
 
     useEffect(() => {
-        if(ctx.initialized) return;
+        if (ctx.initialized) return;
 
         ctx.setFuncSteps(initFuncSteps);
         generate(initFuncSteps);
@@ -76,36 +76,32 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                     valószínűségi változók. A <i>k₁</i> a számláló, a <i>k₂</i> pedig
                     a nevező szabadságfokát jelöli.
                 </p>
+                
+                <h2>Elméleti sűrűségfüggvény</h2>
 
+                <p>
+                    Az F-eloszlás rendelkezik egy elméleti folytonos
+                    sűrűségfüggvénnyel, amelynek alakját két szabadságfok
+                    határozza meg: a számlálóhoz tartozó (<i>k₁</i>) és
+                    a nevezőhöz tartozó (<i>k₂</i>) szabadságfok.
+                </p>
 
-                <div className="bg-light border-light p-3 text-left text-secondary-darker">
-                    <h2>Elméleti sűrűségfüggvény</h2>
-
-                    <p>
-                        Az F-eloszlás rendelkezik egy elméleti folytonos
-                        sűrűségfüggvénnyel, amelynek alakját két szabadságfok
-                        határozza meg: a számlálóhoz tartozó (<i>k₁</i>) és
-                        a nevezőhöz tartozó (<i>k₂</i>) szabadságfok.
-                    </p>
-
-                    <div className="overflow-x-auto">
-                        <BlockMath math="f(x;k_1,k_2) = \frac{1}{B\left(\frac{k_1}{2},\frac{k_2}{2}\right)}\left(\frac{k_1}{k_2}\right)^{k_1/2}x^{k_1/2-1}\left(1+\frac{k_1x}{k_2}\right)^{-\frac{k_1+k_2}{2}}" />
-                    </div>
-
-                    <p>
-                        A képletben <i>x</i> a vizsgált érték, <i>k₁</i> és <i>k₂</i>
-                        a két szabadságfok, a <i>B</i> pedig a bétafüggvényt jelöli.
-                        A függvény értelmezési tartománya x &gt; 0.
-                    </p>
-
-                    <p>
-                        <b>Fontos:</b> Ezt a képletet nem szükséges kézzel kiszámolnod.
-                        Ha szükség van rá, erre különböző statisztikai
-                        szoftverek és programozási könyvtárak állnak rendelkezésre,
-                        például a Pythonban található <b>SciPy</b> könyvtár <i>scipy.stats.f</i> modulja.
-                    </p>
+                <div className="overflow-x-auto">
+                    <BlockMath math="f(x;k_1,k_2) = \frac{1}{B\left(\frac{k_1}{2},\frac{k_2}{2}\right)}\left(\frac{k_1}{k_2}\right)^{k_1/2}x^{k_1/2-1}\left(1+\frac{k_1x}{k_2}\right)^{-\frac{k_1+k_2}{2}}" />
                 </div>
 
+                <p>
+                    A képletben <i>x</i> a vizsgált érték, <i>k₁</i> és <i>k₂</i>
+                    a két szabadságfok, a <i>B</i> pedig a bétafüggvényt jelöli.
+                    A függvény értelmezési tartománya x &gt; 0.
+                </p>
+
+                <p>
+                    <b>Fontos:</b> Ezt a képletet nem szükséges kézzel kiszámolnod.
+                    Ha szükség van rá, erre különböző statisztikai
+                    szoftverek és programozási könyvtárak állnak rendelkezésre,
+                    például a Pythonban található <b>SciPy</b> könyvtár <i>scipy.stats.f</i> modulja.
+                </p>
 
                 <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
                     <p className="fw-bold mb-2">

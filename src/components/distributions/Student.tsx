@@ -42,7 +42,7 @@ export function Student({ initFuncSteps = 0.5 }: { initFuncSteps: number }) {
     };
 
     useEffect(() => {
-        if(ctx.initialized) return;
+        if (ctx.initialized) return;
 
         ctx.setFuncSteps(initFuncSteps);
         generate(initFuncSteps);
@@ -67,36 +67,33 @@ export function Student({ initFuncSteps = 0.5 }: { initFuncSteps: number }) {
 
                 <p>
                     A képletben <i>Z</i> standard normális eloszlású, <i>U</i> pedig
-                    <i>k</i> szabadságfokú khi-négyzet eloszlású, egymástól független
+                    <i> k</i> szabadságfokú khi-négyzet eloszlású, egymástól független
                     valószínűségi változó.
                 </p>
 
 
-                <div className="bg-light border-light p-3 text-left text-secondary-darker">
-                    <h2>Elméleti sűrűségfüggvény</h2>
+                <h2>Elméleti sűrűségfüggvény</h2>
 
-                    <p>
-                        A Student-eloszlás, más néven Student-féle t-eloszlás,
-                        szintén rendelkezik elméleti folytonos sűrűségfüggvénnyel.
-                        A függvény alakját a szabadságfok (<i>k</i>) határozza meg.
-                    </p>
+                <p>
+                    A Student-eloszlás, más néven Student-féle t-eloszlás,
+                    szintén rendelkezik elméleti folytonos sűrűségfüggvénnyel.
+                    A függvény alakját a szabadságfok (<i>k</i>) határozza meg.
+                </p>
 
-                    <BlockMath math="f(x;k) = \frac{\Gamma\left(\frac{k+1}{2}\right)}{\sqrt{k\pi}\,\Gamma\left(\frac{k}{2}\right)}\left(1+\frac{x^2}{k}\right)^{-\frac{k+1}{2}}" />
+                <BlockMath math="f(x;k) = \frac{\Gamma\left(\frac{k+1}{2}\right)}{\sqrt{k\pi}\,\Gamma\left(\frac{k}{2}\right)}\left(1+\frac{x^2}{k}\right)^{-\frac{k+1}{2}}" />
 
-                    <p>
-                        A képletben <i>x</i> a vizsgált érték, <i>k</i> a szabadságfok,
-                        a <i><InlineMath math="\Gamma" /></i> pedig a gammafüggvényt jelöli.
-                        A függvény minden valós x értékre értelmezett.
-                    </p>
+                <p>
+                    A képletben <i>x</i> a vizsgált érték, <i>k</i> a szabadságfok,
+                    a <i><InlineMath math="\Gamma" /></i> pedig a gammafüggvényt jelöli.
+                    A függvény minden valós x értékre értelmezett.
+                </p>
 
-                    <p>
-                        <b>Fontos:</b> Ezt a képletet nem szükséges kézzel kiszámolnod.
-                        Ha szükség van rá, erre különböző statisztikai
-                        szoftverek és programozási könyvtárak állnak rendelkezésre,
-                        például a Pythonban található <b>SciPy</b> könyvtár <i>scipy.stats.t</i> modulja.
-                    </p>
-                </div>
-
+                <p>
+                    <b>Fontos:</b> Ezt a képletet nem szükséges kézzel kiszámolnod.
+                    Ha szükség van rá, erre különböző statisztikai
+                    szoftverek és programozási könyvtárak állnak rendelkezésre,
+                    például a Pythonban található <b>SciPy</b> könyvtár <i>scipy.stats.t</i> modulja.
+                </p>
 
                 <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
                     <p className="fw-bold mb-2">
