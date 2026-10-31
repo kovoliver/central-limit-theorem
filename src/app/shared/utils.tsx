@@ -24,7 +24,7 @@ export const randContinuous = (
     return Math.random() * (to - from) + from;
 };
 
-export function getMin(numbers: number[]): number {
+export function getMin(numbers: Float64Array): number {
     let min = numbers[0];
 
     for (let i = 1; i < numbers.length; i++) {
@@ -36,7 +36,7 @@ export function getMin(numbers: number[]): number {
     return min;
 }
 
-export function getMax(numbers: number[]): number {
+export function getMax(numbers: Float64Array): number {
     let max = numbers[0];
 
     for (let i = 1; i < numbers.length; i++) {
@@ -52,7 +52,7 @@ export function generateRandNumbers(
     from: number,
     to: number,
     count: number
-): number[] {
+): Float64Array {
     if (count <= 0) {
         throw new Error(
             "'Count' parameter must be greater, than zero!"
@@ -65,20 +65,20 @@ export function generateRandNumbers(
         );
     }
 
-    const numbers = [];
+    const numbers = new Float64Array(count);
 
     for (let i = 0; i < count; i++) {
-        numbers.push(randContinuous(from, to));
+        numbers[i] = randContinuous(from, to);
     }
 
     return numbers;
 }
 
 export function getNormalDist(
-    numbers: number[],
+    numbers: Float64Array,
     sampleSize: number,
     sampleCount: number = 1000
-) {
+): Float64Array {
     if (numbers.length === 0) {
         throw new Error(
             "'Numbers' parameter cannot be empty!"
@@ -91,7 +91,7 @@ export function getNormalDist(
         );
     }
 
-    const samples = [];
+    const samples = new Float64Array(sampleCount);
 
     for (let i = 0; i < sampleCount; i++) {
         let avg = 0;
@@ -99,20 +99,19 @@ export function getNormalDist(
         for (let j = 0; j < sampleSize; j++) {
             const randNumber = numbers[rand(0, numbers.length - 1)];
             avg += randNumber;
-
         }
 
-        samples.push(avg / sampleSize);
+        samples[i] = avg / sampleSize;
     }
 
     return samples;
 }
 
 export function getStandardNormalDist(
-    numbers: number[],
+    numbers: Float64Array,
     sampleSize: number,
     sampleCount: number = 1000
-) {
+): Float64Array {
     const samples = getNormalDist(
         numbers,
         sampleSize,
@@ -123,9 +122,12 @@ export function getStandardNormalDist(
     const std = calcStd(numbers);
     const standardError = std / Math.sqrt(sampleSize);
 
-    return samples.map(
-        sample => (sample - mean) / standardError
-    );
+    const result = new Float64Array(samples.length);
+    for (let i = 0; i < samples.length; i++) {
+        result[i] = (samples[i] - mean) / standardError;
+    }
+
+    return result;
 }
 
 export function getChiSquared(
@@ -133,8 +135,8 @@ export function getChiSquared(
     range: NumberRange,
     sampleSize: number,
     sampleCount: number = 10_000,
-) {
-    let chiSquared: number[] = new Array(sampleCount).fill(0);
+): Float64Array {
+    const chiSquared = new Float64Array(sampleCount);
 
     for (let i = 0; i < df; i++) {
         const randNumbers = generateRandNumbers(
@@ -149,9 +151,9 @@ export function getChiSquared(
             sampleCount
         );
 
-        chiSquared = chiSquared.map(
-            (val, j) => val + Z[j] ** 2
-        );
+        for (let j = 0; j < sampleCount; j++) {
+            chiSquared[j] += Z[j] ** 2;
+        }
     }
 
     return chiSquared;
@@ -162,7 +164,7 @@ export function getTDistribution(
     range: NumberRange,
     sampleSize: number,
     sampleCount: number = 10_000,
-) {
+): Float64Array {
     const randNumbersNormal = generateRandNumbers(
         range.from,
         range.to,
@@ -182,9 +184,10 @@ export function getTDistribution(
         sampleCount
     );
 
-    const tDist = chiDist.map(
-        (sample, i) => normalDist[i] / Math.sqrt(sample / df)
-    );
+    const tDist = new Float64Array(sampleCount);
+    for (let i = 0; i < sampleCount; i++) {
+        tDist[i] = normalDist[i] / Math.sqrt(chiDist[i] / df);
+    }
 
     return tDist;
 }
@@ -195,13 +198,14 @@ export function getFDistribution(
     range: NumberRange,
     sampleSize: number,
     sampleCount: number = 10_000,
-) {
+): Float64Array {
     const chi1 = getChiSquared(df1, range, sampleSize, sampleCount);
     const chi2 = getChiSquared(df2, range, sampleSize, sampleCount);
 
-    const fDist = chi1.map(
-        (sample, i) => (sample / df1) / (chi2[i] / df2)
-    );
+    const fDist = new Float64Array(sampleCount);
+    for (let i = 0; i < sampleCount; i++) {
+        fDist[i] = (chi1[i] / df1) / (chi2[i] / df2);
+    }
 
     return fDist;
 }
@@ -210,14 +214,21 @@ export function roundRange(value: number, range: number) {
     return Math.round(value / range) * range;
 }
 
-export function calcMean(values: number[]) {
-    const mean = values.reduce((total, val) => total + val, 0) / values.length;
-    return mean;
+export function calcMean(values: Float64Array): number {
+    let total = 0;
+    for (let i = 0; i < values.length; i++) {
+        total += values[i];
+    }
+    return total / values.length;
 }
 
-export function calcStd(values: number[]) {
+export function calcStd(values: Float64Array): number {
     const avg = calcMean(values);
-    return Math.sqrt(values.reduce((total, val) => total + (val - avg) ** 2, 0) / values.length);
+    let totalDiffSq = 0;
+    for (let i = 0; i < values.length; i++) {
+        totalDiffSq += (values[i] - avg) ** 2;
+    }
+    return Math.sqrt(totalDiffSq / values.length);
 }
 
 export function calcSampleStd(
@@ -320,7 +331,6 @@ export function tDistributionPDF(x: number, df: number): number {
     return Math.exp(logDensity);
 }
 
-
 export function fDistributionPDF(
     x: number,
     df1: number,
@@ -351,7 +361,7 @@ export function fDistributionPDF(
 }
 
 export function getHistogramData(
-    samples: number[],
+    samples: Float64Array,
     range: NumberRange,
     densityFunction: DensityFunction,
     funcSteps: number = 5,
@@ -365,9 +375,13 @@ export function getHistogramData(
         const fixed = Number.isInteger(funcSteps) ? 0 : 1;
         const bin = `${avg.toFixed(fixed)}|${(avg + funcSteps).toFixed(fixed)}`;
 
-        const index = avgGroups.findIndex(
-            data => data.midPoint === midpoint
-        );
+        let index = -1;
+        for (let j = 0; j < avgGroups.length; j++) {
+            if (avgGroups[j].midPoint === midpoint) {
+                index = j;
+                break;
+            }
+        }
 
         if (index === -1) {
             const density = densityFunction(midpoint) * samples.length * funcSteps;
@@ -386,9 +400,14 @@ export function getHistogramData(
         }
     }
 
-    const orderedGroups = avgGroups
-        .filter(g => g.midPoint !== range.to)
-        .sort((a, b) => a.midPoint - b.midPoint);
+    const filteredGroups: HistogramData[] = [];
+    for (let i = 0; i < avgGroups.length; i++) {
+        if (avgGroups[i].midPoint !== range.to) {
+            filteredGroups.push(avgGroups[i]);
+        }
+    }
 
-    return orderedGroups;
+    filteredGroups.sort((a, b) => a.midPoint - b.midPoint);
+
+    return filteredGroups;
 }
