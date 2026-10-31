@@ -8,7 +8,7 @@ export function Navigation() {
                     <NavLink
                         to="/distribution/central-limit-theorem"
                         className={({ isActive }) =>
-                            `btn btn-outline-light px-3 py-2 ${isActive ? "active" : ""}`
+                            `btn btn-outline-light px-2 py-1 ${isActive ? "active" : ""}`
                         }
                     >
                         Centrális határeloszlás-tétel
@@ -17,7 +17,7 @@ export function Navigation() {
                     <NavLink
                         to="/distribution/normal-distribution"
                         className={({ isActive }) =>
-                            `btn btn-outline-light px-3 py-2 ${isActive ? "active" : ""}`
+                            `btn btn-outline-light px-2 py-1 ${isActive ? "active" : ""}`
                         }
                     >
                         Standard normális eloszlás
@@ -26,7 +26,7 @@ export function Navigation() {
                     <NavLink
                         to="/distribution/chi-squared"
                         className={({ isActive }) =>
-                            `btn btn-outline-light px-3 py-2 ${isActive ? "active" : ""}`
+                            `btn btn-outline-light px-2 py-1 ${isActive ? "active" : ""}`
                         }
                     >
                         Khi-négyzet-eloszlás
@@ -35,7 +35,7 @@ export function Navigation() {
                     <NavLink
                         to="/distribution/student"
                         className={({ isActive }) =>
-                            `btn btn-outline-light px-3 py-2 ${isActive ? "active" : ""}`
+                            `btn btn-outline-light px-2 py-1 ${isActive ? "active" : ""}`
                         }
                     >
                         Student eloszlás
@@ -44,7 +44,7 @@ export function Navigation() {
                     <NavLink
                         to="/distribution/f-distribution"
                         className={({ isActive }) =>
-                            `btn btn-outline-light px-3 py-2 ${isActive ? "active" : ""}`
+                            `btn btn-outline-light px-2 py-1 ${isActive ? "active" : ""}`
                         }
                     >
                         F-eloszlás
