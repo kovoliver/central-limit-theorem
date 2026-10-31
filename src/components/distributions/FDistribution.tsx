@@ -88,7 +88,9 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                         a nevezőhöz tartozó (<i>k₂</i>) szabadságfok.
                     </p>
 
-                    <BlockMath math="f(x;k_1,k_2) = \frac{1}{B\left(\frac{k_1}{2},\frac{k_2}{2}\right)}\left(\frac{k_1}{k_2}\right)^{k_1/2}x^{k_1/2-1}\left(1+\frac{k_1x}{k_2}\right)^{-\frac{k_1+k_2}{2}}" />
+                    <div className="overflow-x-auto">
+                        <BlockMath math="f(x;k_1,k_2) = \frac{1}{B\left(\frac{k_1}{2},\frac{k_2}{2}\right)}\left(\frac{k_1}{k_2}\right)^{k_1/2}x^{k_1/2-1}\left(1+\frac{k_1x}{k_2}\right)^{-\frac{k_1+k_2}{2}}" />
+                    </div>
 
                     <p>
                         A képletben <i>x</i> a vizsgált érték, <i>k₁</i> és <i>k₂</i>
