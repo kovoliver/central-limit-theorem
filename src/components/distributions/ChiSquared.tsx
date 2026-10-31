@@ -3,7 +3,7 @@ import { useDistribution } from "../../app/hooks/useDistribution";
 import HistogramChart from "../charts/HistogramChart";
 import { useEffect } from "react";
 import DistributionForm from "../forms/DistributionForm";
-import { BlockMath } from "react-katex";
+import { BlockMath, InlineMath } from "react-katex";
 
 export function ChiSquared({ initFuncSteps = 1 }: { initFuncSteps: number }) {
     const ctx = useDistribution();
@@ -38,12 +38,41 @@ export function ChiSquared({ initFuncSteps = 1 }: { initFuncSteps: number }) {
                 <h1>Khi-négyzet eloszlás</h1>
 
                 <p>
-                    A <b>khi-négyzet eloszlás</b> <i>k</i> darab független, <b>standard normális eloszlású</b> valószínűségi 
+                    A <b>khi-négyzet eloszlás</b> <i>k</i> darab független, <b>standard normális eloszlású</b> valószínűségi
                     változó négyzetösszegének eloszlása. A <i>k</i> itt az úgynevezett szabadságfok, amely
                     meghatározza, hány standard normális eloszlású változó négyzetét összegezzük.
                 </p>
 
                 <BlockMath math="\chi^2 = \sum_{i=1}^{k} Z_i^2" />
+
+                <div className="bg-light border-light text-left text-secondary-darker">
+                    <h2>Elméleti sűrűségfüggvény</h2>
+
+                    <p>
+                        A khi-négyzet eloszlás rendelkezik egy elméleti folytonos
+                        sűrűségfüggvénnyel, amelynek alakját a szabadságfok (<i>k</i>)
+                        határozza meg. A függvény segítségével meghatározható,
+                        hogy az egyes értékek milyen valószínűségi sűrűséggel
+                        fordulnak elő az eloszlásban.
+                    </p>
+
+                    <BlockMath math="f(x;k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}" />
+
+                    <p>
+                        A képletben <i>x</i> a vizsgált érték, <i>k</i> a szabadságfok,
+                        a <i><InlineMath math="\Gamma" /></i> pedig a gammafüggvényt jelöli.
+                        A függvény értelmezési tartománya x &gt; 0.
+                    </p>
+
+                    <p>
+                        <b>Fontos:</b> Ezt a képletet nem szükséges kézzel kiszámolnod.
+                        A mindennapi statisztikai számítások során általában nincs
+                        szükség a sűrűségfüggvény közvetlen meghatározására.
+                        Ha mégis szükség van rá, erre különböző statisztikai
+                        szoftverek és programozási könyvtárak állnak rendelkezésre,
+                        például a Pythonban található <b>SciPy</b> könyvtár <i>scipy.stats.chi2</i> modulja.
+                    </p>
+                </div>
 
                 <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
                     <p className="fw-bold mb-2">

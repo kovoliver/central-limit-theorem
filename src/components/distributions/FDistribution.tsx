@@ -73,6 +73,36 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                     a nevező szabadságfokát jelöli.
                 </p>
 
+
+                <div className="bg-light border-light p-3 text-left text-secondary-darker">
+                    <h2>Elméleti sűrűségfüggvény</h2>
+
+                    <p>
+                        Az F-eloszlás rendelkezik egy elméleti folytonos
+                        sűrűségfüggvénnyel, amelynek alakját két szabadságfok
+                        határozza meg: a számlálóhoz tartozó (<i>k₁</i>) és
+                        a nevezőhöz tartozó (<i>k₂</i>) szabadságfok.
+                    </p>
+
+                    <BlockMath math="f(x;k_1,k_2) = \frac{1}{B\left(\frac{k_1}{2},\frac{k_2}{2}\right)}\left(\frac{k_1}{k_2}\right)^{k_1/2}x^{k_1/2-1}\left(1+\frac{k_1x}{k_2}\right)^{-\frac{k_1+k_2}{2}}" />
+
+                    <p>
+                        A képletben <i>x</i> a vizsgált érték, <i>k₁</i> és <i>k₂</i>
+                        a két szabadságfok, a <i>B</i> pedig a bétafüggvényt jelöli.
+                        A függvény értelmezési tartománya x &gt; 0.
+                    </p>
+
+                    <p>
+                        <b>Fontos:</b> Ezt a képletet nem szükséges kézzel kiszámolnod.
+                        A mindennapi statisztikai számítások során általában nincs
+                        szükség a sűrűségfüggvény közvetlen meghatározására.
+                        Ha mégis szükség van rá, erre különböző statisztikai
+                        szoftverek és programozási könyvtárak állnak rendelkezésre,
+                        például a Pythonban található <b>SciPy</b> könyvtár <i>scipy.stats.f</i> modulja.
+                    </p>
+                </div>
+
+
                 <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
                     <p className="fw-bold mb-2">
                         <i className="bi bi-lightbulb me-2"></i>
