@@ -66,9 +66,7 @@ export function ChiSquared({ initFuncSteps = 1 }: { initFuncSteps: number }) {
 
                     <p>
                         <b>Fontos:</b> Ezt a képletet nem szükséges kézzel kiszámolnod.
-                        A mindennapi statisztikai számítások során általában nincs
-                        szükség a sűrűségfüggvény közvetlen meghatározására.
-                        Ha mégis szükség van rá, erre különböző statisztikai
+                        Ha szükség van rá, erre különböző statisztikai
                         szoftverek és programozási könyvtárak állnak rendelkezésre,
                         például a Pythonban található <b>SciPy</b> könyvtár <i>scipy.stats.chi2</i> modulja.
                     </p>
