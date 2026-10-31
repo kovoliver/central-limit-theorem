@@ -45,9 +45,13 @@ export function NormalDistribution({ initFuncSteps = 0.1 }: { initFuncSteps: num
     };
 
     useEffect(() => {
+        if (ctx.initialized) return;
+
         ctx.setFuncSteps(initFuncSteps);
         generate(initFuncSteps);
-    }, []);
+
+        ctx.setInitialized(true);
+    }, [ctx.initialized]);
 
     return (
         <>
@@ -66,19 +70,19 @@ export function NormalDistribution({ initFuncSteps = 0.1 }: { initFuncSteps: num
 
                 <h3>Standardizálás</h3>
                 <p>
-                    A standardizálás során a valószínűségi változó értékeiből kivonjuk a várható értéket 
-                    (illetve annak becsléseként a számtani átlagot). A számtani átlag egy középérték, 
-                    amit számtani középnek is nevezünk. Ha ezt levonjuk minden egyes adatpontból, akkor 
+                    A standardizálás során a valószínűségi változó értékeiből kivonjuk a várható értéket
+                    (illetve annak becsléseként a számtani átlagot). A számtani átlag egy középérték,
+                    amit számtani középnek is nevezünk. Ha ezt levonjuk minden egyes adatpontból, akkor
                     az értékek átlaga nulla lesz, vagyis az értékek a nulla körül fognak szóródni.
                     <br />
-                    Már csak az egységnyi szórás kialakítása maradt hátra. Ehhez az adott változó szórását használjuk. 
-                    Ha elosztjuk vele a középértéktől vett eltéréseket, akkor az így kapott standardizált változó 
+                    Már csak az egységnyi szórás kialakítása maradt hátra. Ehhez az adott változó szórását használjuk.
+                    Ha elosztjuk vele a középértéktől vett eltéréseket, akkor az így kapott standardizált változó
                     szórása egységnyi lesz.
                     <br />
 
                     <b className="me-1">
-                        Fontos megjegyezni, hogy ha nem egyedi megfigyelésekről, hanem k-elemű minták átlagairól van szó, 
-                        akkor nem a változó szórását, hanem a standard hibát alkalmazzuk. 
+                        Fontos megjegyezni, hogy ha nem egyedi megfigyelésekről, hanem k-elemű minták átlagairól van szó,
+                        akkor nem a változó szórását, hanem a standard hibát alkalmazzuk.
                     </b>
 
                     A standard hiba ugyanis a minták átlagainak szórását fejezi ki.
@@ -94,7 +98,7 @@ export function NormalDistribution({ initFuncSteps = 0.1 }: { initFuncSteps: num
                     hosszú távú, ismételt kísérletezés során.
                     <br />
                     <b>
-                        Ha minden lehetséges érték azonos valószínűségű, akkor a 
+                        Ha minden lehetséges érték azonos valószínűségű, akkor a
                         várható érték megegyezik a számtani átlaggal.
                     </b>
                 </p>

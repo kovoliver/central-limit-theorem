@@ -64,9 +64,13 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
     };
 
     useEffect(() => {
+        if(ctx.initialized) return;
+
         ctx.setFuncSteps(initFuncSteps);
         generate(initFuncSteps);
-    }, []);
+
+        ctx.setInitialized(true);
+    }, [ctx.initialized]);
 
     return (
         <>

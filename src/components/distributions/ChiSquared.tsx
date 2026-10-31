@@ -28,9 +28,13 @@ export function ChiSquared({ initFuncSteps = 1 }: { initFuncSteps: number }) {
     };
 
     useEffect(() => {
+        if(ctx.initialized) return;
+        
         ctx.setFuncSteps(initFuncSteps);
         generate(initFuncSteps);
-    }, []);
+
+        ctx.setInitialized(true);
+    }, [ctx.initialized]);
 
     return (
         <>

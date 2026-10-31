@@ -46,9 +46,13 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
     };
 
     useEffect(() => {
+        if(ctx.initialized) return;
+
         ctx.setFuncSteps(initFuncSteps);
         generate(initFuncSteps);
-    }, []);
+
+        ctx.setInitialized(true);
+    }, [ctx.initialized]);
 
     return (
         <>

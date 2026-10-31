@@ -36,6 +36,7 @@ export function Distribution() {
     });
 
     const [funcSteps, setFuncSteps] = useState<number>(0.1);
+    const [initialized, setInitialized] = useState<boolean>(false);
 
     const contextValue: DistributionContext = {
         distribution,
@@ -53,7 +54,9 @@ export function Distribution() {
         range,
         setRange,
         funcSteps,
-        setFuncSteps
+        setFuncSteps,
+        initialized,
+        setInitialized
     };
 
     const init = ()=> {
@@ -62,6 +65,7 @@ export function Distribution() {
         setDf1(1);
         setDf2(1);
         setRange({from:0, to:100});
+        setInitialized(false);
     };
 
     useEffect(()=> {
