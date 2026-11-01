@@ -74,6 +74,20 @@ export function ChiSquared({ initFuncSteps = 1 }: { initFuncSteps: number }) {
                     például a Pythonban található <b>SciPy</b> könyvtár <i>scipy.stats.chi2</i> modulja.
                 </p>
 
+                <div className="alert alert-warning bg-opacity-10 border-start border-4 mb-3 p-2">
+                    <p className="fw-bold mb-2">
+                        <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                        Figyelem
+                    </p>
+                    <p className="mb-0">
+                        Olyan eloszlásoknál, mint a Khi-négyzet vagy az F-eloszlás,
+                        a nullához közel akár nagyon nagy differencia is lehet az
+                        elméleti és empirikus eloszlási értékek között. Ennek oka,
+                        hogy a program az elméleti görbét csak az empirikus
+                        osztályközepéig számolja.
+                    </p>
+                </div>
+
                 <div className="alert alert-info bg-opacity-10 border-start border-4 mb-3 p-2">
                     <p className="fw-bold mb-2">
                         <i className="bi bi-lightbulb me-2"></i>

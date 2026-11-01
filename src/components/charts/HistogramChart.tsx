@@ -79,9 +79,7 @@ export default function HistogramChart({
                                 offset: -20,
                                 fill: colors.border,
                             }}
-                            /* 1. Nincs mesterséges pixel-eltolás, így az X=0 és Y=0 hajszálpontosan egybeesik */
                             padding={{ left: 0, right: 0 }}
-                            /* 2. A domain pontosan a téglalapok széleitől széleiig tart */
                             domain={[firstBound, lastBound]}
                             ticks={ticks}
                             tickFormatter={(value) => {

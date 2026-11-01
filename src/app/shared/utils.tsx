@@ -225,7 +225,7 @@ export function getFDistribution(
 }
 
 export function roundRange(value: number, range: number) {
-    return Math.round(value / range) * range;
+    return Math.floor(value / range) * range;
 }
 
 export function calcMean(values: Float64Array): number {
@@ -374,6 +374,16 @@ export function fDistributionPDF(
     return Math.exp(logDensity);
 }
 
+export function countDecimals(value: number, max: number = 6): number {
+    if (!Number.isFinite(value)) return 0;
+
+    const [mantissa, exponent] = String(value).split("e");
+    const fraction = mantissa.split(".")[1] ?? "";
+    const decimals = fraction.length - (exponent ? parseInt(exponent, 10) : 0);
+
+    return Math.min(Math.max(decimals, 0), max);
+}
+
 export function getHistogramData(
     samples: Float64Array,
     range: NumberRange,
@@ -381,13 +391,13 @@ export function getHistogramData(
     funcSteps: number = 5,
 ): HistogramData[] {
     const avgGroups: HistogramData[] = [];
+    const decimals = countDecimals(funcSteps, 3);
 
     for (let i = 0; i < samples.length; i++) {
         const sample = samples[i];
         const avg = roundRange(sample, funcSteps);
         const midpoint = avg + funcSteps / 2;
-        const fixed = Number.isInteger(funcSteps) ? 0 : 1;
-        const bin = `${avg.toFixed(fixed)}|${(avg + funcSteps).toFixed(fixed)}`;
+        const bin = `${avg.toFixed(decimals)}|${(avg + funcSteps).toFixed(decimals)}`;
 
         let index = -1;
         for (let j = 0; j < avgGroups.length; j++) {
