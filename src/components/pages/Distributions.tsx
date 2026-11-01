@@ -15,6 +15,17 @@ import { NormalDistribution } from "../distributions/NormalDistribution";
 export const distContext =
     createContext<DistributionContext | undefined>(undefined);
 
+const initializedValue = {
+    sampleCount: 10_000,
+    sampleSize: 3,
+    df1: 1,
+    df2: 1,
+    range: {
+        from: 0,
+        to: 100
+    } as NumberRange
+};
+
 export function Distribution() {
     const { type } = useParams();
 
@@ -59,31 +70,43 @@ export function Distribution() {
         setInitialized
     };
 
-    const init = ()=> {
-        setSampleCount(10_000);
-        setSampleSize(3);
-        setDf1(1);
-        setDf2(1);
-        setRange({from:0, to:100});
-        setInitialized(false);
+    const init = () => {
+        setSampleCount(initializedValue.sampleCount);
+        setSampleSize(initializedValue.sampleSize);
+        setDf1(initializedValue.df1);
+        setDf2(initializedValue.df2);
+        setRange(initializedValue.range);
     };
 
-    useEffect(()=> {
+    useEffect(() => {
         init();
     }, [type]);
+
+    useEffect(() => {
+        if (
+            df1 !== initializedValue.df1 ||
+            df2 !== initializedValue.df2 ||
+            sampleCount !== initializedValue.sampleCount ||
+            sampleSize !== initializedValue.sampleSize ||
+            range.from !== initializedValue.range.from ||
+            range.to !== initializedValue.range.to
+        ) return;
+
+        setInitialized(false);
+    }, [type, df1, df2, sampleSize, sampleCount, range]);
 
     const getDistributionComponent = () => {
         switch (type) {
             case "central-limit-theorem":
-                return <CentralLimitTheorem initFuncSteps={5}/>;
+                return <CentralLimitTheorem initFuncSteps={5} />;
             case "normal-distribution":
-                return <NormalDistribution initFuncSteps={0.1}/>;
+                return <NormalDistribution initFuncSteps={0.1} />;
             case "chi-squared":
-                return <ChiSquared initFuncSteps={0.5}/>;
+                return <ChiSquared initFuncSteps={0.5} />;
             case "student":
-                return <Student initFuncSteps={0.5}/>;
+                return <Student initFuncSteps={0.5} />;
             case "f-distribution":
-                return <FDistribution initFuncSteps={0.1}/>;
+                return <FDistribution initFuncSteps={0.1} />;
         }
     };
 
