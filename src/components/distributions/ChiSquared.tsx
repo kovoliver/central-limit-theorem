@@ -83,7 +83,7 @@ export function ChiSquared({ initFuncSteps = 1 }: { initFuncSteps: number }) {
                         Olyan eloszlásoknál, mint a Khi-négyzet vagy az F-eloszlás,
                         a nullához közel akár nagyon nagy differencia is lehet az
                         elméleti és empirikus eloszlási értékek között. Ennek oka,
-                        hogy a program az elméleti görbét csak az empirikus
+                        hogy a program az elméleti görbét csak az empirikus osztályköz
                         osztályközepéig számolja.
                     </p>
                 </div>
