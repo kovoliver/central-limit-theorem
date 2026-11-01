@@ -94,8 +94,7 @@ export function NormalDistribution({ initFuncSteps = 0.1 }: { initFuncSteps: num
                     A <b>várható érték</b> (expected value) kifejezés fontos mind a statisztikában,
                     mint a valószínűségszámításban.
                     A várható érték egy valószínűségi változó lehetséges értékeinek a hozzájuk tartozó
-                    valószínűségekkel súlyozott átlaga, amely megadja a változó teoretikus középértékét
-                    hosszú távú, ismételt kísérletezés során.
+                    valószínűségekkel súlyozott átlaga, amely megadja a változó teoretikus középértékét.
                     <br />
                     <b>
                         Ha minden lehetséges érték azonos valószínűségű, akkor a

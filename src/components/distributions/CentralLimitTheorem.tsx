@@ -111,7 +111,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                             szám (1-6).
                         </li>
                         <li>
-                            <strong>Folytonos:</strong> egy véletlenszerűen kiválasztott,
+                            <strong>Folytonos (valós számok):</strong> egy véletlenszerűen kiválasztott,
                             utcán szembejövő ember testmagassága.
                         </li>
                     </ul>
@@ -120,14 +120,14 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <h3>Mi az a sűrűségfüggvény?</h3>
                 <p>
                     A sűrűségfüggvény megmutatja, hogyan <b>koncentrálódnak a megfigyelések</b> az egyes értékek környezetében.
-                    A függvény magasabb értékei nagyobb valószínűségi sűrűséget jelentenek, vagyis az adott érték környezetében
-                    nagyobb valószínűséggel találkozunk megfigyelésekkel.
+                    A függvény magasabb helyettesítési értékei nagyobb valószínűségi sűrűséget jelentenek, vagyis az adott érték 
+                    környezetében nagyobb valószínűséggel találkozunk megfigyelésekkel.
 
                     <br />
-                    Például, ha a valószínűségi változónk egy populáció tagjainak IQ-értéke, akkor a normális eloszlás sűrűségfüggvénye
-                    szemlélteti, hogyan koncentrálódnak az IQ-értékek az egyes intervallumokban. 
-                    Az intelligencia <b>normális eloszlást</b> követ (lásd: lentebb), így a megfigyelések legnagyobb része
-                    az átlag körül halmozódik fel.
+                    Például, ha a valószínűségi változónk egy populáció tagjainak IQ-értéke, akkor a <b>normális eloszlás</b> 
+                    sűrűségfüggvénye szemlélteti, hogyan koncentrálódnak az IQ-értékek az egyes intervallumokban,
+                    mivel az IQ (és még sok más változó) a normális eloszláshoz közelít.
+                    A <b>normális eloszlásnál</b>, a megfigyelések legnagyobb része az átlag körül halmozódik fel.
                     A tapasztalati adatokból készített gyakorisági hisztogram pedig megfelelő mintanagyság esetén jól közelítheti 
                     az elméleti sűrűségfüggvény alakját.
                 </p>
@@ -136,8 +136,8 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <p>
                     Az eloszlásfüggvény a sűrűségfüggvény integráltja. A sűrűségfüggvény segítségével meghatározhatjuk,
                     hogy egy adott intervallumba tartozás mekkora valószínűséggel következik be.
-                    Például a testmagasság esetében megadhatjuk annak valószínűségét, hogy egy véletlenszerűen
-                    kiválasztott személy magassága 170 és 175 cm közé essen.
+                    Például a testmagasság esetében kiszámíthatjuk annak valószínűségét, hogy egy véletlenszerűen
+                    kiválasztott személy magassága 170 és 175 cm közé esik.
                 </p>
 
                 <h3>Normális eloszlás</h3>
@@ -169,7 +169,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <h3>Standard hiba</h3>
 
                 <p>
-                    Ha egy alapsokaságból FAE mintákat veszünk,
+                    Ha egy alapsokaságból <b>FAE</b> mintákat veszünk,
                     akkor az egyes minták átlaga nem feltétlenül fog megegyezni
                     az alapsokaság átlagával. A különböző minták átlagai közötti
                     ingadozás mértéke azonban egy egyszerű képlettel kiszámítható.
@@ -218,7 +218,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
 
                         <li className="p-1">
                             A szoftver az osztályközök középpontjainál kiszámítja az elméleti normáleloszlás
-                            sűrűségfüggvényének értékét is. Így összehasonlíthatóvá válik az empirikus
+                            sűrűségfüggvényének értékeit is. Így összehasonlíthatóvá válik az empirikus
                             és az elméleti eloszlás, amelyhez a minták átlagai a centrális
                             határeloszlás-tétel értelmében közelítenek.
                         </li>

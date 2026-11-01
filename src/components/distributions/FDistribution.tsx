@@ -91,7 +91,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                 </div>
 
                 <p>
-                    A képletben <i>x</i> a vizsgált érték, <i>k₁</i> és <i>k₂</i>
+                    A képletben <i>x</i> a vizsgált érték, <i>k<sub>1</sub></i> és <i>k<sub>2</sub></i>
                     a két szabadságfok, a <i>B</i> pedig a bétafüggvényt jelöli.
                     A függvény értelmezési tartománya x &gt; 0.
                 </p>
