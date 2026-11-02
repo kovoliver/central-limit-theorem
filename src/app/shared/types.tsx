@@ -45,6 +45,9 @@ export type DistributionContext = {
 
     initialized:boolean;
     setInitialized:Dispatch<SetStateAction<boolean>>;
+
+    loading:boolean;
+    setLoading:Dispatch<SetStateAction<boolean>>;
 };
 
 export type DensityFunction = (x: number) => number;

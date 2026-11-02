@@ -1,4 +1,4 @@
-import { chiSquarePDF, getChiSquared, getHistogramData } from "../../app/shared/utils";
+import { chiSquarePDF, getChiSquared, getHistogramData, waitForResult } from "../../app/shared/utils";
 import { useDistribution } from "../../app/hooks/useDistribution";
 import HistogramChart from "../charts/HistogramChart";
 import { useEffect } from "react";
@@ -114,7 +114,7 @@ export function ChiSquared({ initFuncSteps = 1 }: { initFuncSteps: number }) {
             </div>
 
             <DistributionForm
-                generate={() => generate()}
+                generate={() => waitForResult(generate, ctx.setLoading)}
             />
 
             <div style={{ marginTop: "-1px" }} className="w-100 bg-light border">

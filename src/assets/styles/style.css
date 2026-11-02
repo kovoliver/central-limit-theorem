@@ -42,27 +42,27 @@
 }
 
 h1 {
-    color:var(--surface);
-    font-size:26px;
+    color: var(--surface);
+    font-size: 26px;
 }
 
 h2 {
-    color:var(--accent-text);
-    font-size:23px;
+    color: var(--accent-text);
+    font-size: 23px;
 }
 
 h3 {
-    color:var(--teal-dark);
-    font-size:20px;
+    color: var(--teal-dark);
+    font-size: 20px;
 }
 
 h4 {
-    color:var(--border-hover);
-    font-size:18px;
+    color: var(--border-hover);
+    font-size: 18px;
 }
 
 .text-secondary-darker {
-    color:#484848!important;
+    color: #484848 !important;
 }
 
 .custom-range {
@@ -277,21 +277,64 @@ input[type="range"] {
 }
 
 .katex {
-    font-size: 1.2em!important;
+    font-size: 1.2em !important;
 }
 
 .table-dark {
-  --bs-table-bg: var(--surface);
-  --bs-table-bg-type: var(--surface);
-  --bs-table-hover-bg: var(--surface-hover);
-  --bs-table-hover-color: var(--text-primary);
-  --bs-table-border-color: var(--bs-border-color);
-  --bs-table-color: var(--text-primary);
-  color: var(--text-primary);
-  border-color: var(--bs-border-color);
+    --bs-table-bg: var(--surface);
+    --bs-table-bg-type: var(--surface);
+    --bs-table-hover-bg: var(--surface-hover);
+    --bs-table-hover-color: var(--text-primary);
+    --bs-table-border-color: var(--bs-border-color);
+    --bs-table-color: var(--text-primary);
+    color: var(--text-primary);
+    border-color: var(--bs-border-color);
+}
+
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: color-mix(in srgb, var(--app-bg) 0%, transparent);
+}
+
+.loading-spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid var(--accent-dark);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: loading-spin 0.8s linear infinite;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.12);
+}
+
+.loading-text {
+    color: var(--accent-dark);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+@keyframes loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-spinner {
+        animation: none;
+        border-top-color: var(--teal);
+    }
 }
 
 @media (max-width: 575.98px) {
+
     .container,
     .container-fluid {
         padding-left: 0;

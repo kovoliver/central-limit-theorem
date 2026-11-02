@@ -5,6 +5,7 @@ import {
     numberFormat,
     normalDistribution,
     getStandardNormalDist,
+    waitForResult,
 } from "../../app/shared/utils";
 import { useDistribution } from "../../app/hooks/useDistribution";
 import HistogramChart from "../charts/HistogramChart";
@@ -256,7 +257,7 @@ export function NormalDistribution({ initFuncSteps = 0.1 }: { initFuncSteps: num
                 <div className="col-xl-3 col-md-6 d-flex align-items-center justify-content-center">
                     <button
                         className="btn btn-generate btn-md"
-                        onClick={() => generate()}
+                        onClick={() => waitForResult(generate, ctx.setLoading)}
                     >
                         Generálás
                     </button>

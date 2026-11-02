@@ -8,6 +8,7 @@ import {
     calcSampleStd,
     numberFormat,
     normalDistribution,
+    waitForResult,
 } from "../../app/shared/utils";
 
 import type { NumberRange } from "../../app/shared/types";
@@ -390,7 +391,7 @@ export function CentralLimitTheorem({ initFuncSteps = 1 }: { initFuncSteps: numb
                 <div className="col-xl-1 col-md-12 d-flex align-items-center justify-content-center">
                     <button
                         className="btn btn-generate btn-md"
-                        onClick={() => generate()}
+                        onClick={() => waitForResult(generate, ctx.setLoading)}
                     >
                         Generálás
                     </button>

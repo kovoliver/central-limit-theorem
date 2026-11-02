@@ -11,6 +11,7 @@ import { CentralLimitTheorem } from "../distributions/CentralLimitTheorem";
 import { Student } from "../distributions/Student";
 import { FDistribution } from "../distributions/FDistribution";
 import { NormalDistribution } from "../distributions/NormalDistribution";
+import Spinner from "../forms/Spinner";
 
 export const distContext =
     createContext<DistributionContext | undefined>(undefined);
@@ -48,6 +49,7 @@ export function Distribution() {
 
     const [funcSteps, setFuncSteps] = useState<number>(0.1);
     const [initialized, setInitialized] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const contextValue: DistributionContext = {
         distribution,
@@ -67,7 +69,9 @@ export function Distribution() {
         funcSteps,
         setFuncSteps,
         initialized,
-        setInitialized
+        setInitialized,
+        loading,
+        setLoading
     };
 
     const init = () => {
@@ -113,6 +117,10 @@ export function Distribution() {
     return (
         <distContext.Provider value={contextValue}>
             <div className="container">
+                {
+                    loading && <Spinner />
+                }
+
                 {getDistributionComponent()}
             </div>
         </distContext.Provider>

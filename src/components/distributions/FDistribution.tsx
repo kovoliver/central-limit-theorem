@@ -3,7 +3,8 @@ import { useDistribution } from "../../app/hooks/useDistribution";
 import {
     fDistributionPDF,
     getFDistribution, getHistogramData,
-    numberFormat
+    numberFormat,
+    waitForResult
 } from "../../app/shared/utils";
 import HistogramChart from "../charts/HistogramChart";
 import { BlockMath } from "react-katex";
@@ -76,7 +77,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                     valószínűségi változók. A <i>k₁</i> a számláló, a <i>k₂</i> pedig
                     a nevező szabadságfokát jelöli.
                 </p>
-                
+
                 <h2>Elméleti sűrűségfüggvény</h2>
 
                 <p>
@@ -267,7 +268,7 @@ export function FDistribution({ initFuncSteps = 0.5 }: { initFuncSteps: number }
                 <div className="col-xl-1 col-md-6 d-flex align-items-center justify-content-center">
                     <button
                         className="btn btn-generate btn-md"
-                        onClick={() => generate()}
+                        onClick={() => waitForResult(generate, ctx.setLoading)}
                     >
                         Generálás
                     </button>

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDistribution } from "../../app/hooks/useDistribution";
-import { getHistogramData, getTDistribution, tDistributionPDF } from "../../app/shared/utils";
+import { getHistogramData, getTDistribution, tDistributionPDF, waitForResult } from "../../app/shared/utils";
 import HistogramChart from "../charts/HistogramChart";
 import DistributionForm from "../forms/DistributionForm";
 import { BlockMath, InlineMath } from "react-katex";
@@ -122,7 +122,7 @@ export function Student({ initFuncSteps = 0.5 }: { initFuncSteps: number }) {
             </div>
 
             <DistributionForm
-                generate={() => generate()}
+                generate={() => waitForResult(generate, ctx.setLoading)}
             />
 
             <div style={{ marginTop: "-1px" }} className="w-100 bg-light border">

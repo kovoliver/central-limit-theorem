@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from "react";
 import type { DensityFunction, HistogramData, NumberRange } from "./types";
 
 export const rand = (
@@ -10,7 +11,7 @@ export const rand = (
         );
     }
 
-    if(!Number.isInteger(from) || !Number.isInteger(to)) {
+    if (!Number.isInteger(from) || !Number.isInteger(to)) {
         throw new Error(
             "'from' and 'to' parameters must be integers!"
         );
@@ -31,7 +32,7 @@ export const randContinuous = (
 };
 
 export function getMin(numbers: Float64Array): number {
-    if(numbers.length === 0) {
+    if (numbers.length === 0) {
         throw new Error("'numbers' parameter must contain at least one number!");
     }
 
@@ -47,10 +48,10 @@ export function getMin(numbers: Float64Array): number {
 }
 
 export function getMax(numbers: Float64Array): number {
-    if(numbers.length === 0) {
+    if (numbers.length === 0) {
         throw new Error("'numbers' parameter must contain at least one number!");
     }
-    
+
     let max = numbers[0];
 
     for (let i = 1; i < numbers.length; i++) {
@@ -435,3 +436,17 @@ export function getHistogramData(
 
     return filteredGroups;
 }
+
+export const waitForResult = async (
+    generate: () => void,
+    setLoading: Dispatch<SetStateAction<boolean>>
+) => {
+    setLoading(true);
+
+    try {
+        await new Promise<void>(resolve => setTimeout(resolve, 1));
+        generate();
+    } finally {
+        setLoading(false);
+    }
+};
